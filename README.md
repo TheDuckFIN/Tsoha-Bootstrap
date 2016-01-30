@@ -7,10 +7,10 @@ Yleisiä linkkejä:
 
 Bootstrap:
 
-[Typography](http://getbootstrap.com/css/#type)
-[Tables](http://getbootstrap.com/css/#tables)
-[Forms](http://getbootstrap.com/css/#forms)
-[Buttons](http://getbootstrap.com/css/#buttons)
+* [Typography](http://getbootstrap.com/css/#type)
+* [Tables](http://getbootstrap.com/css/#tables)
+* [Forms](http://getbootstrap.com/css/#forms)
+* [Buttons](http://getbootstrap.com/css/#buttons)
 
 ## Työn aihe
 
