@@ -5,6 +5,13 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://vlakanie.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
+Bootstrap:
+
+[Typography](http://getbootstrap.com/css/#type)
+[Tables](http://getbootstrap.com/css/#tables)
+[Forms](http://getbootstrap.com/css/#forms)
+[Buttons](http://getbootstrap.com/css/#buttons)
+
 ## Työn aihe
 
 Toteutan kurssilla geneerisen keskustelupalstasovelluksen, joka ei siis ole suunnattu mihinkään tiettyyn käyttötarkoitukseen (esimerkiksi pokemon-harrastajien keskustelunurkaksi), vaan se toimii yleisalustana mille tahansa keskustelufoorumille. 
