@@ -1,30 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
 
-<table class="table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>AAA</th>
-			<th>BEE</th>
-		</tr>
-	</thead>
+<div class="list">
+	<table class="table table-striped-custom table-bordered-custom">
+		<thead>
+			<tr class="header">
+				<th class="col-md-5">Kategoria 1</th>
+				<th class="col-md-1">Viimeisin viesti</th>
+			</tr>
+		</thead>
 
-	<tbody>
-		<tr>
-			<td><a href="#">Aihealue 1</a></td>
-			<td>Blaa</td>
-		</tr>
-		<tr>
-			<td><a href="#">Aihealue 2</a></td>
-			<td>Blaa</td>
-		</tr>
-		<tr>
-			<td><a href="#">Aihealue 3</a></td>
-			<td>Blaa</td>
-		</tr>
-	</tbody>
+		<tbody>
+			<tr>
+				<td><a href="board/1">Aihealue 1</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+			<tr>
+				<td><a href="board/1">Aihealue 2</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+			<tr>
+				<td><a href="board/1">Aihealue 3</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<table class="table table-striped-custom table-bordered-custom">
+		<thead>
+			<tr class="header">
+				<th class="col-md-5">Kategoria 1</th>
+				<th class="col-md-1"></th>
+			</tr>
+		</thead>
 
-</table>
-
+		<tbody>
+			<tr>
+				<td><a href="board/1">Aihealue 1</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+			<tr>
+				<td><a href="board/1">Aihealue 2</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+			<tr>
+				<td><a href="board/1">Aihealue 3</a></td>
+				<td>Linkki viimeiseen viestiin</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 {% endblock %}

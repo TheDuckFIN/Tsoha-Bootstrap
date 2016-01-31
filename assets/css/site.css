@@ -1,3 +1,7 @@
+body {
+	background: #FEFEFE;
+}
+
 #main-container{
   max-width: 1200px;
   padding: 10px 25px;
@@ -7,4 +11,85 @@
 .navbar .container-fluid{
   max-width: 1200px;
   margin: 0px auto;
+}
+
+.header {
+	background: #00C5CD;
+	color: #FFFFFF;
+}
+
+.buttons {
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.post-header {
+	margin-bottom: 24px;
+}
+
+.post_content {
+
+}
+
+.undo-margins {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.post-username {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.single-post {
+	background: #F0F0F0;
+	border: 1px solid #909090;
+}
+
+.single-post-header {
+	padding: 4px;
+	border-bottom: 1px solid #909090;
+}
+
+.single-post-header-time {
+	font-size: 12px;
+}
+
+.single-post-header-buttons {
+	width: 100%;
+	text-align: right;
+}
+
+.single-post-avatar {
+	border-right: 1px solid #909090;
+	padding: 6px;
+	height: 100%;
+}
+
+.single-post-content {
+	padding: 6px;
+}
+
+.list {
+	
+}
+
+.table-striped-custom > tbody > tr:nth-of-type(odd) {
+  background-color: #F0F0F0;
+}
+
+.table-striped-custom > tbody > tr:nth-of-type(even) {
+  background-color: #FFFFFF;
+}
+
+.table-bordered-custom > thead > tr > th,
+.table-bordered-custom > tbody > tr > th,
+.table-bordered-custom > tfoot > tr > th {
+  border: 1px solid #8FD8D8;
+}
+
+.table-bordered-custom > thead > tr > td,
+.table-bordered-custom > tbody > tr > td,
+.table-bordered-custom > tfoot > tr > td {
+  border: 1px solid #8FD8D8;
 }
