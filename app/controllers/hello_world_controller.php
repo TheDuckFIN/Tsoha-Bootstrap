@@ -19,6 +19,22 @@
       View::make('suunnitelmat/thread.html');
     }
 
+    public static function profile(){
+      View::make('suunnitelmat/profile.html');
+    }
+
+    public static function login(){
+      View::make('suunnitelmat/login.html');
+    }
+
+    public static function register(){
+      View::make('suunnitelmat/register.html');
+    }
+
+    public static function thread_newpost(){
+      View::make('suunnitelmat/newpost.html');
+    }
+
     public static function sandbox(){
       // Testaa koodiasi täällä
       View::make('helloworld.html');

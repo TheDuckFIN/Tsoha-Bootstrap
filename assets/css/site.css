@@ -13,9 +13,30 @@ body {
   margin: 0px auto;
 }
 
+.navbar-custom {
+	background: #00C5CD;
+	border-color: #8FD8D8;
+}
+
+.profile {
+	margin-top: 12px;
+	width: 50%;
+}
+
+.table {
+	margin-bottom: 0px;
+}
+
+.navbar-custom a {
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
 .header {
 	background: #00C5CD;
 	color: #FFFFFF;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .buttons {
@@ -23,12 +44,12 @@ body {
 	padding-top: 8px;
 }
 
-.post-header {
-	margin-bottom: 24px;
+.login-form {
+	width: 50%;
 }
 
-.post_content {
-
+.post-header {
+	margin-bottom: 8px;
 }
 
 .undo-margins {
@@ -44,6 +65,7 @@ body {
 .single-post {
 	background: #F0F0F0;
 	border: 1px solid #909090;
+	margin-top: 4px;
 }
 
 .single-post-header {
@@ -51,27 +73,19 @@ body {
 	border-bottom: 1px solid #909090;
 }
 
-.single-post-header-time {
-	font-size: 12px;
-}
-
-.single-post-header-buttons {
-	width: 100%;
-	text-align: right;
+.single-post-header a {
+	float: right;
+	margin-left: 4px;
 }
 
 .single-post-avatar {
-	border-right: 1px solid #909090;
 	padding: 6px;
-	height: 100%;
 }
 
 .single-post-content {
+	border-left: 1px solid #909090;
 	padding: 6px;
-}
-
-.list {
-	
+	min-height: 250px;
 }
 
 .table-striped-custom > tbody > tr:nth-of-type(odd) {
