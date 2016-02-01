@@ -35,6 +35,10 @@
       View::make('suunnitelmat/newpost.html');
     }
 
+    public static function thread_editpost(){
+      View::make('suunnitelmat/newpost.html');
+    }
+
     public static function sandbox(){
       // Testaa koodiasi täällä
       View::make('helloworld.html');

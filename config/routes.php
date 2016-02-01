@@ -28,6 +28,10 @@
     HelloWorldController::thread_newpost();
   });
 
+  $routes->get('/editpost/1', function() {
+    HelloWorldController::thread_editpost();
+  });
+
   $routes->get('/board/1/newthread', function() {
     HelloWorldController::newthread();
   });
