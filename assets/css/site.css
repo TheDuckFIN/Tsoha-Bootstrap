@@ -65,16 +65,23 @@ body {
 }
 
 .single-post-header {
+	display: flex;
+	justify-content: space-between;
 	padding: 4px;
 	border-bottom: 1px solid #909090;
 }
 
-.single-post-header a {
-	float: right;
-	margin-left: 4px;
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.single-post-header-buttons {
+	
 }
 
 .single-post-avatar {
+	min-width: 112px;
 	padding: 6px;
 }
 
