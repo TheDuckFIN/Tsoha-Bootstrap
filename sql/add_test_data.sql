@@ -1,15 +1,21 @@
-INSERT INTO Käyttäjäryhmä (nimi, väri) VALUES ('Ylläpitäjä', '#FF0000');
-INSERT INTO Käyttäjäryhmä (nimi, väri) VALUES ('Moderaattori', '#00FF00');
+INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
+INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
 
-INSERT INTO Käyttöoikeudet (käyttäjäryhmä_id, keskustelun_poisto, viestin_poisto, viestin_muokkaaminen, keskustelun_lukitseminen, porttikielto, keskustelualuehallinta, Käyttäjäryhmähallinta, asetushallinta, käyttäjähallinta)
+INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
 	VALUES (1, true, true, true, true, true, true, true, true, true);
-INSERT INTO Käyttöoikeudet (käyttäjäryhmä_id, keskustelun_poisto, viestin_poisto, viestin_muokkaaminen, keskustelun_lukitseminen, porttikielto, keskustelualuehallinta, Käyttäjäryhmähallinta, asetushallinta, käyttäjähallinta)
+INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
 	VALUES (2, true, true, true, true, true, false, false, false, false);
 
-INSERT INTO Käyttäjä (käyttäjäryhmä_id, Käyttäjätunnus, salasana, email, näytä_email) 
+INSERT INTO User (usergroup_id, username, password, email, show_email) 
 	VALUES  (1, 'vlakanie', 'salasana', 'testi@testi.fi', true);
 
-INSERT INTO Kategoria (nimi) VALUES ('Yleinen');
+INSERT INTO Category (name) VALUES ('Yleinen');
 
-INSERT INTO Aihealue (kategoria_id, nimi, kuvaus) VALUES (1, 'Testialue', 'Alueen kuvaus');
-INSERT INTO Aihealue (kategoria_id, nimi, kuvaus) VALUES (1, 'Testialue 2', 'Alueen kuvaus! BLAA BLAA');
+INSERT INTO Board (category_id, name, description) VALUES (1, 'Testialue', 'Alueen kuvaus');
+INSERT INTO Board (category_id, name, description) VALUES (1, 'Testialue 2', 'Alueen kuvaus! BLAA BLAA');
+
+INSERT INTO Category (name) VALUES ('Taide');
+
+INSERT INTO Board (category_id, name, description) VALUES (2, 'Kuvataide', 'Piirustuksia!');
+INSERT INTO Board (category_id, name, description) VALUES (2, 'Musiikki', 'Lallalalalaa');
+INSERT INTO Board (category_id, name, description) VALUES (2, 'Nykytaide', 'Anything');
