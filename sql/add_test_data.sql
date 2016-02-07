@@ -6,7 +6,7 @@ INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_messag
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
 	VALUES (2, true, true, true, true, true, false, false, false, false);
 
-INSERT INTO User (usergroup_id, username, password, email, show_email) 
+INSERT INTO Member (usergroup_id, username, password, email, show_email) 
 	VALUES  (1, 'vlakanie', 'salasana', 'testi@testi.fi', true);
 
 INSERT INTO Category (name) VALUES ('Yleinen');

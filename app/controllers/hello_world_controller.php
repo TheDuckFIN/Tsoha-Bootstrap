@@ -1,5 +1,7 @@
 <?php
 
+  require 'app/models/category.php';
+
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -40,7 +42,10 @@
     }
 
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $eka = Category::find(1);
+      $kaikki = Category::all();
+
+      Kint::dump($eka);
+      Kint::dump($kaikki);
     }
   }

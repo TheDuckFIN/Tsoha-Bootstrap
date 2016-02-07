@@ -5,7 +5,7 @@ CREATE TABLE Usergroup (
 	locked boolean NOT NULL 
 );
 
-CREATE TABLE User (
+CREATE TABLE Member (
 	id SERIAL PRIMARY KEY,
 	usergroup_id INTEGER REFERENCES Usergroup(id),
 	username varchar(16) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Board (
 CREATE TABLE Thread (
 	id SERIAL PRIMARY KEY,
 	board_id INTEGER REFERENCES Board(id),
-	starter_id INTEGER REFERENCES User(id),
+	starter_id INTEGER REFERENCES Member(id),
 	title varchar(50) NOT NULL,
 	locked boolean NOT NULL DEFAULT FALSE
 );
@@ -52,7 +52,7 @@ CREATE TABLE Thread (
 CREATE TABLE Message (
 	id SERIAL PRIMARY KEY,
 	thread_id INTEGER REFERENCES Thread(id),
-	starter_id INTEGER REFERENCES User(id),
+	starter_id INTEGER REFERENCES Member(id),
 	time timestamp NOT NULL,
 	message text NOT NULL
 );
@@ -60,17 +60,17 @@ CREATE TABLE Message (
 CREATE TABLE Edit (
 	id SERIAL PRIMARY KEY,
 	message_id INTEGER REFERENCES Message(id),
-	editor_id INTEGER REFERENCES User(id),
+	editor_id INTEGER REFERENCES Member(id),
 	time timestamp NOT NULL,
 	description varchar(100) NOT NULL
 );
 
 CREATE TABLE Ban (
 	id SERIAL PRIMARY KEY,
-	user_id INTEGER REFERENCES User(id),
-	moderator_id INTEGER REFERENCES User(id),
-	start timestamp NOT NULL,
-	end timestamp NOT NULL,
+	member_id INTEGER REFERENCES Member(id),
+	moderator_id INTEGER REFERENCES Member(id),
+	start_time timestamp NOT NULL,
+	end_time timestamp NOT NULL,
 	reason varchar(250) NOT NULL
 );
 
@@ -80,21 +80,21 @@ CREATE TABLE Achievement (
 	description varchar(200) NOT NULL
 );
 
-CREATE TABLE User_achievement (
-	user_id INTEGER REFERENCES User(id),
+CREATE TABLE Member_achievement (
+	member_id INTEGER REFERENCES Member(id),
 	achievement_id INTEGER REFERENCES Achievement(id)
 );
 
 CREATE TABLE Private_message (
 	id SERIAL PRIMARY KEY,
-	sender_id INTEGER REFERENCES User(id),
+	sender_id INTEGER REFERENCES Member(id),
 	title varchar(50) NOT NULL,
 	time timestamp NOT NULL,
 	message text NOT NULL
 );
 
 CREATE TABLE Received_message (
-	receiver_id INTEGER REFERENCES User(id),
+	receiver_id INTEGER REFERENCES Member(id),
 	message_id INTEGER REFERENCES Private_message(id)
 );
 
