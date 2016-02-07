@@ -1,7 +1,5 @@
 <?php
 
-  require 'app/models/category.php';
-
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -42,8 +40,8 @@
     }
 
     public static function sandbox(){
-      $eka = Category::find(1);
-      $kaikki = Category::all();
+      $eka = Thread::find(1);
+      $kaikki = Thread::find_all_by_board(1);
 
       Kint::dump($eka);
       Kint::dump($kaikki);

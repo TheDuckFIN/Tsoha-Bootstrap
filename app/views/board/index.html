@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="list">
+	
+	{% for category in categories %}
+		<table class="table table-striped-custom table-bordered-custom">
+			<thead>
+				<tr class="header">
+					<th class="col-xs-5">{{category.name}}</th>
+					<th class="col-xs-1">Viimeisin viesti</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for board in boards %}
+					{% if board.category_id == category.id %}
+						<tr>
+							<td>
+								<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a><br />
+								<small>{{board.description}}</small>
+							</td>
+							<td>Linkki viimeiseen viestiin</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endfor %}
+	
+</div>
+
+{% endblock %}

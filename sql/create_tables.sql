@@ -1,6 +1,6 @@
 CREATE TABLE Usergroup (
 	id SERIAL PRIMARY KEY,
-	name varchar(20) NOT NULL,
+	name varchar(50) NOT NULL,
 	color varchar(7) NOT NULL,
 	locked boolean NOT NULL 
 );
@@ -52,7 +52,7 @@ CREATE TABLE Thread (
 CREATE TABLE Message (
 	id SERIAL PRIMARY KEY,
 	thread_id INTEGER REFERENCES Thread(id),
-	starter_id INTEGER REFERENCES Member(id),
+	sender_id INTEGER REFERENCES Member(id),
 	time timestamp NOT NULL,
 	message text NOT NULL
 );

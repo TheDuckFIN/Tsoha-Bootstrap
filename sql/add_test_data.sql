@@ -1,13 +1,20 @@
+INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#000000', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
 
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
-	VALUES (1, true, true, true, true, true, true, true, true, true);
+	VALUES (1, false, false, false, false, false, false, false, false, false);
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
-	VALUES (2, true, true, true, true, true, false, false, false, false);
+	VALUES (2, true, true, true, true, true, true, true, true, true);
+INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
+	VALUES (3, true, true, true, true, true, false, false, false, false);
 
 INSERT INTO Member (usergroup_id, username, password, email, show_email) 
-	VALUES  (1, 'vlakanie', 'salasana', 'testi@testi.fi', true);
+	VALUES  (2, 'vlakanie', 'salasana', 'testi@testi.fi', true);
+INSERT INTO Member (usergroup_id, username, password, email, show_email) 
+	VALUES  (1, 'jorma', 'salasana', 'testi@testi.fi', true);
+INSERT INTO Member (usergroup_id, username, password, email, show_email) 
+	VALUES  (3, 'modemies', 'salasana', 'testi@testi.fi', true);
 
 INSERT INTO Category (name) VALUES ('Yleinen');
 
@@ -19,3 +26,29 @@ INSERT INTO Category (name) VALUES ('Taide');
 INSERT INTO Board (category_id, name, description) VALUES (2, 'Kuvataide', 'Piirustuksia!');
 INSERT INTO Board (category_id, name, description) VALUES (2, 'Musiikki', 'Lallalalalaa');
 INSERT INTO Board (category_id, name, description) VALUES (2, 'Nykytaide', 'Anything');
+
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 3, 'Keskustelu 1', false);
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 1, 'KeskusSAJDJA', false);
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 2, 'TESTI', true);
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 1, 'Jassooo', false);
+
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 2, 'adsadsa asdasd', false);
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 3, 'KeskAAIJFLSKAL', false);
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 1, 'örpöpröpö', false);
+
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 1, CURRENT_TIMESTAMP, 'Lorem ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Loreadsdsam ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Lorem ipsdsadasum...');
+
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 2, CURRENT_TIMESTAMP, 'Lorem asdadasd...');
+
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm ipasddsasum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasdasdsadasdm ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasddasasdsaasdm ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 3, CURRENT_TIMESTAMP, 'Loreasdadaadasdm ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm iasdsapsum...');
+
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 4, CURRENT_TIMESTAMP, 'Lorem ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 5, CURRENT_TIMESTAMP, 'Lortretretwem igfdgfdgfdpsum...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 6, CURRENT_TIMESTAMP, 'Lorem ipsuytrtrurm...');
+INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 7, CURRENT_TIMESTAMP, 'Loremasddsadsa ipsum...');

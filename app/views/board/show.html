@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="forum-header">
+	<small><a href="{{base_path}}">Etusivu</a> < <a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a></small>
+	<h2>{{board.name}}</h2>
+</div>
+
+<div class="buttons">
+	<a class="btn btn-success" href="1/newthread" role="button">Uusi keskustelu</a>
+</div>
+
+<div class="list">
+	<table class="table table-striped-custom table-bordered-custom">
+		<thead>
+			<tr class="header">
+				<th class="col-xs-9">Keskustelu</th>
+				<th class="col-xs-1">Viestejä</th>
+				<th class="col-xs-2">Viimeisin viesti</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			{% for thread in threads %}
+				<tr>
+					<td>
+						<a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a><br />
+						<small><a href="{{base_path}}/profile/{{starter[thread.id].id}}">{{starter[thread.id].username}}</a></small>
+					</td>
+					<td>{{postcount[thread.id]}}</td>
+					<td>Viimeinen viesti</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+</div>
+
+{% endblock %}

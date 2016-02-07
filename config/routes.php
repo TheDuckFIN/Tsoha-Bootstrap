@@ -1,12 +1,18 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    BoardController::index();
   });
 
-  $routes->get('/board/1', function() {
-    HelloWorldController::board();
+  $routes->get('/board', function() {
+    BoardController::index();
   });
+
+  $routes->get('/board/:id', function($id) {
+    BoardController::show($id);
+  });
+
+
 
   $routes->get('/login', function() {
     HelloWorldController::login();
