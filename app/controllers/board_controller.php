@@ -23,10 +23,12 @@
 			$threads = Thread::find_all_by_board($id);
 			$starter = array();
 			$postcount = array();
+			$lastmsg = array();
 
 			foreach ($threads as $thread) {
 				$starter[$thread->id] = Member::find($thread->starter_id);
 				$postcount[$thread->id] = Thread::postcount($thread->id);
+				$lastmsg[$thread->id] = Message::last_message_by_thread_id($thread->id);
 			}
 
 			if ($threads == NULL) {
@@ -40,7 +42,8 @@
 				'threads' => $threads, 
 				'empty' => $empty, 
 				'postcount' => $postcount,
-				'starter' => $starter
+				'starter' => $starter,
+				'lastmsg' => $lastmsg
 			));
 		}
 

@@ -12,6 +12,14 @@
     BoardController::show($id);
   });
 
+  $routes->get('/thread', function() {
+    ThreadController::index();  
+  });
+
+  $routes->get('/thread/:id', function($id) {
+    ThreadController::show($id);  
+  });
+
 
 
   $routes->get('/login', function() {
@@ -24,10 +32,6 @@
 
   $routes->get('/profile/1', function() {
     HelloWorldController::profile();
-  });
-
-  $routes->get('/thread/1', function() {
-    HelloWorldController::thread();
   });
 
   $routes->get('/thread/1/newpost', function() {

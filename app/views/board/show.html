@@ -14,9 +14,9 @@
 	<table class="table table-striped-custom table-bordered-custom">
 		<thead>
 			<tr class="header">
-				<th class="col-xs-9">Keskustelu</th>
+				<th class="col-xs-8">Keskustelu</th>
 				<th class="col-xs-1">Viestejä</th>
-				<th class="col-xs-2">Viimeisin viesti</th>
+				<th class="col-xs-3">Viimeisin viesti</th>
 			</tr>
 		</thead>
 
@@ -29,7 +29,10 @@
 						<small><a href="{{base_path}}/profile/{{starter[thread.id].id}}">{{starter[thread.id].username}}</a></small>
 					</td>
 					<td>{{postcount[thread.id]}}</td>
-					<td>Viimeinen viesti</td>
+					<td>
+						{{lastmsg[thread.id]['msg'].time}}<br />
+						<a href="{{base_path}}/profile/{{lastmsg[board.id]['user'].id}}">{{lastmsg[thread.id]['user'].username}}</a>
+					</td>
 				</tr>
 			{% endfor %}
 
