@@ -44,10 +44,21 @@
     PostController::index();
   });
 
+  $routes->post('/post/new/', function() {
+    PostController::store();
+  });
+
   $routes->get('/post/new/:id', function($id) {
     PostController::create($id);
   });  
 
+  $routes->get('/post/delete/', function() {
+    PostController::index();
+  });
+
+  $routes->get('/post/delete/:id', function($id) {
+    PostController::delete($id);
+  });
 
 
 

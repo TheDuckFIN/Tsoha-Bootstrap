@@ -15,6 +15,12 @@
 	<a class="btn btn-info" href="{{base_path}}/post/new/{{thread.id}}" role="button">Vastaa keskusteluun</a>
 </div>
 
+{% if alert_msg %}
+	<div class="alert alert-success">
+		{{alert_msg}}
+	</div>
+{% endif %}
+
 <div class="post-content">
 	{% for msg in messages %}
 		<div class="single-post">
@@ -22,9 +28,9 @@
 				Lähetetty {{msg.time}} (( muokattu x kertaa, viimeisin insert_aika_here ))
 				
 				<span class="single-post-header-buttons">
-					<a href="/tsoha/editpost/1" class="btn btn-info btn-xs">Muokkaa</a>
+					<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
 					<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-					<a href="#" class="btn btn-danger btn-xs">Poista</a>
+					<a href="{{base_path}}/post/delete/{{msg.id}}" class="btn btn-danger btn-xs">Poista</a>
 				</span>
 			</div>
 

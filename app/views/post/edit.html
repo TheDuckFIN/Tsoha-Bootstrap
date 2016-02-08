@@ -6,13 +6,13 @@
 		<a href="{{base_path}}">Etusivu</a> < 
 		<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a> < 
 		<a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a> < 
-		<a href="{{base_path}}/post/new/{{thread.id}}">Vastaus keskusteluun</a> 
+		<a href="{{base_path}}/post/edit/{{message.id}}">Viestin muokkaaminen</a> 
 	</small>
 
-	<h2>Vastaus keskusteluun "{{thread.title}}"</h2>
+	<h2>Muokkaat viestiäsi keskusteluun "{{thread.title}}"</h2>
 </div>
 
-<form method="post" action="{{base_path}}/post/new">
+<form method="post" action="{{base_path}}/post/edit">
 	<input type="hidden" name="thread" value="{{thread.id}}">
 
 	<div class="form-group">
@@ -21,12 +21,18 @@
 		<button class="btn btn-default">link</button>
 	</div>
 	<div class="form-group">
-		<textarea name="message" class="form-control" rows="10"></textarea>
+		<textarea name="message" class="form-control" rows="10">{{message.message}}</textarea>
+	</div>
+	<div class="form-group">
+		<label>Kuvaile muokkaustasi</label>
+		<input type="text" name="description" class="form-control">
 	</div>
 	<div class="form-group">
 		<button class="btn btn-default" disabled>Esikatselu</button>
-		<button class="btn btn-info" type="submit">Lähetä viesti</button>
+		<button class="btn btn-info" type="submit" disabled>Tallenna muutokset</button>
 	</div>
 </form>
+
+<span style="font-size: 18px; color: #FF0000;">EI TOIMI VIELÄ KÄYTÄNNÖSSÄ! VAIN FORMI ON VALMIS!</span>
 
 {% endblock %}

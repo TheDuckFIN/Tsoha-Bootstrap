@@ -112,4 +112,17 @@
 			return null;
 		}
 
+		public function save() {
+			$query = DB::connection()->prepare('INSERT INTO Message (sender_id, thread_id, time, message) VALUES (:sender_id, :thread_id, CURRENT_TIMESTAMP, :message)');
+			$query->execute(array('sender_id' => $this->sender_id, 'thread_id' => $this->thread_id, 'message' => $this->message));
+		}
+
+		public function delete() {
+			$delete_msg = DB::connection()->prepare('DELETE FROM Message WHERE id = :id');
+			$delete_msg->execute(array('id' => $this->id));
+
+			$delete_edits = DB::connection()->prepare('DELETE FROM Edit WHERE message_id = :id');
+			$delete_edits->execute(array('id' => $this->id));
+		}
+
 	}
