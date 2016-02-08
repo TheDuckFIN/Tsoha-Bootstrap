@@ -2,89 +2,46 @@
 {% block content %}
 
 <div class="forum-header">
-	<small><a href="{{base_path}}">Etusivu</a> < <a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a> < <a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a></small>
+	<small>
+		<a href="{{base_path}}">Etusivu</a> < 
+		<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a> < 
+		<a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a>
+	</small>
+	
 	<h2>{{thread.title}}</h2>
 </div>
 
 <div class="buttons">
-	<a class="btn btn-info" href="/tsoha/thread/1/newpost" role="button">Vastaa keskusteluun</a>
+	<a class="btn btn-info" href="{{base_path}}/post/new/{{thread.id}}" role="button">Vastaa keskusteluun</a>
 </div>
 
 <div class="post-content">
-	<div class="single-post">
-		<div class="single-post-header">	
-			Lähetetty 30.1.2016 21:39, muokattu 2 kertaa, viimeisin 31.1.2016 0:32
-			
-			<span class="single-post-header-buttons">
-				<a href="/tsoha/editpost/1" class="btn btn-info btn-xs">Muokkaa</a>
-				<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-				<a href="#" class="btn btn-danger btn-xs">Poista</a>
-			</span>
-		</div>
-
-		<div class="row undo-margins flex-row">
-			<div class="single-post-avatar col-xs-2">
-				<span class="post-username"><a href="/tsoha/profile/1">vlakanie</a></span><br>
-				<span style="color: #FF0000;">Ylläpitäjä</span><br>
-				<img src="http://i.imgur.com/OL8m8FS.png"></img>
+	{% for msg in messages %}
+		<div class="single-post">
+			<div class="single-post-header">	
+				Lähetetty {{msg.time}} (( muokattu x kertaa, viimeisin insert_aika_here ))
+				
+				<span class="single-post-header-buttons">
+					<a href="/tsoha/editpost/1" class="btn btn-info btn-xs">Muokkaa</a>
+					<a href="#" class="btn btn-info btn-xs">Lainaa</a>
+					<a href="#" class="btn btn-danger btn-xs">Poista</a>
+				</span>
 			</div>
-			<div class="single-post-content col-xs-10">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro nobis accusantium. Assumenda modi repellendus quo exercitationem, dolores, quibusdam molestias sapiente error commodi, beatae mollitia, porro. Animi ipsam at similique? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate quibusdam, et officiis nulla optio saepe debitis fugiat cumque, a distinctio repellat. Assumenda facilis pariatur quae sint aut hic quod alias! Lorem ipsum dolor sit amet, consectetur adipisicing elit. A molestiae ipsam nulla fugiat commodi sunt pariatur libero, quod qui sit voluptates! Accusantium, voluptatibus. Sapiente dolorem repellendus ex ipsa laudantium, neque.</p>
-			
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro nobis accusantium. Assumenda modi repellendus quo exercitationem, dolores, quibusdam molestias sapiente error commodi, beatae mollitia, porro. Animi ipsam at similique? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate quibusdam, et officiis nulla optio saepe debitis fugiat cumque, a distinctio repellat. Assumenda facilis pariatur quae sint aut hic quod alias! Lorem ipsum dolor sit amet, consectetur adipisicing elit. A molestiae ipsam nulla fugiat commodi sunt pariatur libero, quod qui sit voluptates! Accusantium, voluptatibus. Sapiente dolorem repellendus ex ipsa laudantium, neque.</p>
 
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro nobis accusantium. Assumenda modi repellendus quo exercitationem, dolores, quibusdam molestias sapiente error commodi, beatae mollitia, porro. Animi ipsam at similique? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate quibusdam, et officiis nulla optio saepe debitis fugiat cumque, a distinctio repellat. Assumenda facilis pariatur quae sint aut hic quod alias! Lorem ipsum dolor sit amet, consectetur adipisicing elit. A molestiae ipsam nulla fugiat commodi sunt pariatur libero, quod qui sit voluptates! Accusantium, voluptatibus. Sapiente dolorem repellendus ex ipsa laudantium, neque.</p>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro nobis accusantium. Assumenda modi repellendus quo exercitationem, dolores, quibusdam molestias sapiente error commodi, beatae mollitia, porro. Animi ipsam at similique? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate quibusdam, et officiis nulla optio saepe debitis fugiat cumque, a distinctio repellat. Assumenda facilis pariatur quae sint aut hic quod alias! Lorem ipsum dolor sit amet, consectetur adipisicing elit. A molestiae ipsam nulla fugiat commodi sunt pariatur libero, quod qui sit voluptates! Accusantium, voluptatibus. Sapiente dolorem repellendus ex ipsa laudantium, neque.</p>				
+			<div class="row undo-margins flex-row">
+				<div class="single-post-avatar col-xs-2">
+					<span class="post-username"><a href="{{base_path}}/profile/{{sender[msg.id].id}}">{{sender[msg.id].username}}</a></span><br>
+					<span style="color: #FF0000;">RYHMÄ</span><br>
+					Tähän avatar myöhemmin :)<br />
+					Käyttäjäryhmä ei pidä vielä paikkaansa, toteutan usergroupin ensi viikolla!
+					<!--<img src="http://i.imgur.com/OL8m8FS.png"></img>-->
+				</div>
+				<div class="single-post-content col-xs-10">
+					{{msg.message}}
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="single-post">
-		<div class="single-post-header">	
-			Lähetetty 30.1.2016 22:31
-			
-			<span class="single-post-header-buttons">
-				<a href="/tsoha/editpost/1" class="btn btn-info btn-xs">Muokkaa</a>
-				<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-				<a href="#" class="btn btn-danger btn-xs">Poista</a>
-			</span>
-		</div>
-
-		<div class="row undo-margins flex-row">
-			<div class="single-post-avatar col-xs-2">
-				<span class="post-username"><a href="/tsoha/profile/1">vlakanie</a></span><br>
-				<span style="color: #FF0000;">Ylläpitäjä</span><br>
-				<img src="http://i.imgur.com/OL8m8FS.png"></img>
-			</div>
-			<div class="single-post-content col-xs-10">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates porro nobis accusantium. Assumenda modi repellendus quo exercitationem, dolores, quibusdam molestias sapiente error commodi, beatae mollitia, porro. Animi ipsam at similique? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate quibusdam, et officiis nulla optio saepe debitis fugiat cumque, a distinctio repellat. Assumenda facilis pariatur quae sint aut hic quod alias! Lorem ipsum dolor sit amet, consectetur adipisicing elit. A molestiae ipsam nulla fugiat commodi sunt pariatur libero, quod qui sit voluptates! Accusantium, voluptatibus. Sapiente dolorem repellendus ex ipsa laudantium, neque.</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="single-post">
-		<div class="single-post-header">	
-			Lähetetty 30.1.2016 23:22, muokattu 1 kerran, viimeisin 31.1.2016 22:00
-			
-			<span class="single-post-header-buttons">
-				<a href="/tsoha/editpost/1" class="btn btn-info btn-xs">Muokkaa</a>
-				<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-				<a href="#" class="btn btn-danger btn-xs">Poista</a>
-			</span>
-		</div>
-
-		<div class="row undo-margins flex-row">
-			<div class="single-post-avatar col-xs-2">
-				<span class="post-username"><a href="/tsoha/profile/1">vlakanie</a></span><br>
-				<span style="color: #FF0000;">Ylläpitäjä</span><br>
-				<img src="http://i.imgur.com/OL8m8FS.png"></img>
-			</div>
-			<div class="single-post-content col-xs-10">
-				<p>Tosi lyhyt viesti</p>
-			</div>
-		</div>
-	</div>
+	{% endfor %}
 </div>
 
 {% endblock %}

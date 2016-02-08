@@ -4,7 +4,7 @@
     BoardController::index();
   });
 
-  $routes->get('/board', function() {
+  $routes->get('/board/', function() {
     BoardController::index();
   });
 
@@ -12,13 +12,42 @@
     BoardController::show($id);
   });
 
-  $routes->get('/thread', function() {
+  $routes->get('/thread/', function() {
     ThreadController::index();  
+  });
+
+  $routes->get('/thread/new/', function() {
+    ThreadController::index();
+  });
+
+  $routes->get('/thread/new/:id', function($id) {
+    ThreadController::create($id);
   });
 
   $routes->get('/thread/:id', function($id) {
     ThreadController::show($id);  
   });
+
+  $routes->get('/post/', function() {
+    PostController::index();
+  });
+
+  $routes->get('/post/edit/', function() {
+    PostController::index();
+  });
+
+  $routes->get('/post/edit/:id', function($id) {
+    PostController::edit($id);
+  });  
+
+  $routes->get('/post/new/', function() {
+    PostController::index();
+  });
+
+  $routes->get('/post/new/:id', function($id) {
+    PostController::create($id);
+  });  
+
 
 
 
@@ -32,18 +61,6 @@
 
   $routes->get('/profile/1', function() {
     HelloWorldController::profile();
-  });
-
-  $routes->get('/thread/1/newpost', function() {
-    HelloWorldController::thread_newpost();
-  });
-
-  $routes->get('/editpost/1', function() {
-    HelloWorldController::thread_editpost();
-  });
-
-  $routes->get('/board/1/newthread', function() {
-    HelloWorldController::newthread();
   });
 
   $routes->get('/hiekkalaatikko', function() {

@@ -2,12 +2,16 @@
 {% block content %}
 
 <div class="forum-header">
-	<small><a href="{{base_path}}">Etusivu</a> < <a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a></small>
+	<small>
+		<a href="{{base_path}}">Etusivu</a> < 
+		<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a>
+	</small>
+	
 	<h2>{{board.name}}</h2>
 </div>
 
 <div class="buttons">
-	<a class="btn btn-success" href="1/newthread" role="button">Uusi keskustelu</a>
+	<a class="btn btn-success" href="{{base_path}}/thread/new/{{board.id}}" role="button">Uusi keskustelu</a>
 </div>
 
 <div class="list">

@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="list">
+<div class="forum-header">
+	<small>
+		<a href="{{base_path}}">Etusivu</a>
+	</small>
 	
+	<h2>Foorumin otsikko</h2>
+</div>
+
+<div class="list">	
 	{% for category in categories %}
 		<table class="table table-striped-custom table-bordered-custom">
 			<thead>
@@ -37,7 +44,6 @@
 			</tbody>
 		</table>
 	{% endfor %}
-	
 </div>
 
 {% endblock %}

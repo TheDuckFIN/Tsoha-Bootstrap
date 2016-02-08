@@ -29,7 +29,7 @@
 		}
 
 		public static function all_by_thread_id($thread_id) {
-			$query = DB::connection()->prepare('SELECT * FROM Message WHERE thread_id = :id ORDER BY id DESC');
+			$query = DB::connection()->prepare('SELECT * FROM Message WHERE thread_id = :id');
 			$query->execute(array('id' => $thread_id));
 
 			$rows = $query->fetchAll();
