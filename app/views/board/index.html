@@ -7,8 +7,8 @@
 		<table class="table table-striped-custom table-bordered-custom">
 			<thead>
 				<tr class="header">
-					<th class="col-xs-5">{{category.name}}</th>
-					<th class="col-xs-1">Viimeisin viesti</th>
+					<th class="col-xs-9">{{category.name}}</th>
+					<th class="col-xs-3">Viimeisin viesti</th>
 				</tr>
 			</thead>
 
@@ -20,7 +20,17 @@
 								<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a><br />
 								<small>{{board.description}}</small>
 							</td>
-							<td>Linkki viimeiseen viestiin</td>
+							<td>
+								{% if lastmsg[board.id] == null %}
+									Ei viestejä!
+								{% else %}
+									<small>
+										<b><a href="{{base_path}}/thread/{{lastmsg[board.id]['thread'].id}}">{{lastmsg[board.id]['thread'].title}}</a></b><br />
+										{{lastmsg[board.id]['msg'].time}}<br />
+										<a href="{{base_path}}/profile/{{lastmsg[board.id]['user'].id}}">{{lastmsg[board.id]['user'].username}}</a>
+									</small>
+								{% endif %}
+							</td>
 						</tr>
 					{% endif %}
 				{% endfor %}

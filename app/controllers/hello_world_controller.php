@@ -40,8 +40,8 @@
     }
 
     public static function sandbox(){
-      $eka = Thread::find(1);
-      $kaikki = Thread::find_all_by_board(1);
+      $eka = Message::find(1);
+      $kaikki = Message::all();
 
       Kint::dump($eka);
       Kint::dump($kaikki);

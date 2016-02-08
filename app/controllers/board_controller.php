@@ -5,8 +5,17 @@
 		public static function index() {
 			$categories = Category::all();
 			$boards = Board::all();
+			$lastmsg = array();
 
-			View::make('board/index.html', array('categories' => $categories, 'boards' => $boards));
+			foreach ($boards as $board) {
+				$lastmsg[$board->id] = Message::last_message_by_board_id($board->id);
+			}
+
+			View::make('board/index.html', array(
+				'categories' => $categories, 
+				'boards' => $boards,
+				'lastmsg' => $lastmsg
+			));
 		}
 
 		public static function show($id) {
