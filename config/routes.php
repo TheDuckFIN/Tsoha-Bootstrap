@@ -24,6 +24,10 @@
     ThreadController::create($id);
   });
 
+  $routes->post('/thread/new/', function() {
+    ThreadController::store();
+  });
+
   $routes->get('/thread/:id', function($id) {
     ThreadController::show($id);  
   });

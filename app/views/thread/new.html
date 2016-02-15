@@ -1,21 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="" class="form-horizontal">
+<div class="forum-header">
+	<small>
+		<a href="{{base_path}}">Etusivu</a> < 
+		<a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a> < 
+		<a href="{{base_path}}/thread/new/{{board.id}}">Uusi keskustelu</a> 
+	</small>
+
+	<h2>Uusi keskustelu</h2>
+</div>
+
+<form action="{{base_path}}/thread/new" method="post">
+	<input type="hidden" name="board" value="{{board.id}}">
+
 	<div class="form-group">
 		<label>Otsikko</label>
-		<input type="text" name="otsikko" class="form-control">
+		<input type="text" name="title" class="form-control">
 	</div>
+
 	<div class="form-group">
 		<button class="btn btn-default"><b>b</b></button>
 		<button class="btn btn-default"><i>i</i></button>
 		<button class="btn btn-default">link</button>
 	</div>
+
 	<div class="form-group">
-		<textarea class="form-control" rows="10"></textarea>
+		<textarea class="form-control" name="message" rows="10"></textarea>
 	</div>
+
 	<div class="form-group">
-		<button class="btn btn-default">Esikatselu</button>
+		<button class="btn btn-default" disabled>Esikatselu</button>
 		<button class="btn btn-info" type="submit">Luo keskustelu</button>
 	</div>
 </form>

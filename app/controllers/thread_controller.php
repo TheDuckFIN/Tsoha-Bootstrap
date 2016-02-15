@@ -25,7 +25,19 @@
 		}
 
 		public static function create($id) {
-			View::make('thread/new.html');
+			parent::check_logged_in();
+
+			$board = Board::find($id);
+
+			View::make('thread/new.html', array('board' => $board));
+		}
+
+		public static function store() {
+			parent::check_logged_in();
+
+			$params = $_POST;
+
+			echo 'wip!';
 		}
 
 	}
