@@ -43,7 +43,12 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/tsoha/login">Kirjaudu sisään</a></li>
+            {% if user_logged_in %}
+              <li><a href="{{base_path}}/profile/{{user_logged_in.id}}">Oma profiili</a></li>
+              <li><a href="{{base_path}}/logout">Kirjaudu ulos</a></li>
+            {% else %}
+              <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

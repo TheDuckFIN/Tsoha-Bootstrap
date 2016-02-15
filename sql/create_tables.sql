@@ -8,10 +8,11 @@ CREATE TABLE Usergroup (
 CREATE TABLE Member (
 	id SERIAL PRIMARY KEY,
 	usergroup_id INTEGER REFERENCES Usergroup(id),
-	username varchar(16) NOT NULL,
-	password varchar(250) NOT NULL,
+	username varchar(20) NOT NULL,
+	password text NOT NULL,
 	email varchar(200) NOT NULL,
 	show_email boolean NOT NULL DEFAULT TRUE,
+	registered timestamp NOT NULL,
 	avatar varchar(200),
 	info varchar(400)
 );

@@ -21,7 +21,14 @@ body {
 
 .profile {
 	margin-top: 12px;
-	width: 50%;
+}
+
+.profile-table {
+	margin-top: 6px;
+}
+
+.profile-table td {
+	padding: 6px;
 }
 
 .navbar-custom a {

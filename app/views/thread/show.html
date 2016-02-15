@@ -28,9 +28,13 @@
 				Lähetetty {{msg.time}} (( muokattu x kertaa, viimeisin insert_aika_here ))
 				
 				<span class="single-post-header-buttons">
-					<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
-					<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-					<a href="{{base_path}}/post/delete/{{msg.id}}" class="btn btn-danger btn-xs">Poista</a>
+					{% if user_logged_in %}
+						<a href="#" class="btn btn-info btn-xs">Lainaa</a>
+						{% if user_logged_in.id == msg.sender_id %}
+							<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
+							<a href="{{base_path}}/post/delete/{{msg.id}}" class="btn btn-danger btn-xs">Poista</a>
+						{% endif %}
+					{% endif %}
 				</span>
 			</div>
 

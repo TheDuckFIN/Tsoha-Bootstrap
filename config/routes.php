@@ -60,22 +60,30 @@
     PostController::delete($id);
   });
 
+  $routes->get('/login/', function() {
+    UserController::login();
+  });
 
-
-  $routes->get('/login', function() {
-    HelloWorldController::login();
+  $routes->post('/login/', function() {
+    UserController::handle_login();
   });
 
   $routes->get('/register', function() {
-    HelloWorldController::register();
+    UserController::register();
   });
 
-  $routes->get('/profile/1', function() {
-    HelloWorldController::profile();
+  $routes->post('/register', function() {
+    UserController::handle_register();
   });
 
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+  $routes->get('/logout/', function() {
+    UserController::logout();
   });
 
+  $routes->get('/profile/', function() {
+    UserController::index();
+  });
 
+  $routes->get('/profile/:id', function($id) {
+    UserController::show($id);
+  });

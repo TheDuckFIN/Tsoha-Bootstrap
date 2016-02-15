@@ -28,6 +28,13 @@
   // Otetaan Composer käyttöön
   require 'vendor/autoload.php';
 
+  // Valitron -languageconfig
+  use Valitron\Validator as V;
+
+  V::langDir(__DIR__.'/vendor/vlucas/valitron/lang/'); // always set langDir before lang.
+  V::lang('fi');
+
+  // Routeconfig
   $routes = new \Slim\Slim();
   $routes->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware);
 

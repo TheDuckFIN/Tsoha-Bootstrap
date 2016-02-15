@@ -7,6 +7,8 @@
 		}
 
 		public static function create($id) {
+			parent::check_logged_in();
+
 			$thread = Thread::find($id);
 			$board = Board::find($thread->board_id);
 
@@ -17,10 +19,12 @@
 		}
 
 		public static function store() {
+			parent::check_logged_in();
+
 			$params = $_POST;
 
 			$message = new Message(array(
-				'sender_id' => 2, //KOVAKOODATTU JORMA!!!
+				'sender_id' => get_user_logged_in()->id, 
 				'thread_id' => $params['thread'],
 				'message' => $params['message']
 			));
@@ -31,6 +35,8 @@
 		}
 
 		public static function edit($id) {
+			parent::check_logged_in();
+
 			$message = Message::find($id);
 			$thread = Thread::find($message->thread_id);
 			$board = Board::find($thread->board_id);
@@ -43,6 +49,8 @@
 		}
 
 		public static function delete($id) {
+			parent::check_logged_in();
+
 			$message = Message::find($id);
 
 			if ($message == NULL) {

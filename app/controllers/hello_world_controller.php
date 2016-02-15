@@ -41,9 +41,7 @@
 
     public static function sandbox(){
       $eka = Message::find(1);
-      $kaikki = Message::all();
 
-      Kint::dump($eka);
-      Kint::dump($kaikki);
+      $eka->validate();
     }
   }

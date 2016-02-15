@@ -4,25 +4,33 @@
 <div class="login-form">
 	<h1>Rekisteröidy</h1>		
 
-	<form action="">
+	{% if errors %}
+		<div class="alert alert-danger">
+			{% for error in errors %}
+				{{error}}<br />
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<form action="{{base_path}}/register" method="post">
 		<div class="form-group">
 			<label>Käyttäjätunnus</label>
-  			<input type="text" name="tunnus" class="form-control">
+  			<input type="text" name="username" value="{{username}}" class="form-control">
 		</div>
 		
 		<div class="form-group">
 			<label>Salasana</label>
-  			<input type="password" name="salasana" class="form-control">
+  			<input type="password" name="password" class="form-control">
 		</div>
 
 		<div class="form-group">
 			<label>Salasana uudestaan</label>
-  			<input type="password" name="salasana_uudestaan" class="form-control">
+  			<input type="password" name="password_confirmation" class="form-control">
 		</div>
 
 		<div class="form-group">
 			<label>Sähköpostiosoite</label>
-  			<input type="email" name="email" class="form-control">
+  			<input type="email" name="email" value="{{email}}" class="form-control">
 		</div>
 
 		<div class="form-group">

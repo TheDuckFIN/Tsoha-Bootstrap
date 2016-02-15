@@ -8,6 +8,24 @@
 			parent::__construct($attributes);
 		}
 
+		public function validate() {
+			$thread = Thread::find($this->thread_id);
+
+			$v = new Valitron\Validator(array(
+				'message' => $this->message,
+				'thread_locked' => $thread->locked
+			));
+
+			$v->rule('required', 'message');
+
+			if($v->validate()) {
+			    echo "Yay! We're all good!";
+			} else {
+			    // Errors
+			    print_r($v->errors());
+			}
+		}
+
 		public static function all() {
 			$query = DB::connection()->prepare('SELECT * FROM Message');
 			$query->execute();
@@ -62,7 +80,7 @@
 								'time' => $result['time'],
 								'message' => $result['message']
 							)),
-					'user' => Member::find($result['sender_id']),
+					'user' => User::find($result['sender_id']),
 					'thread' => Thread::find($result['thread_id'])
 				);
 			} else {
@@ -84,7 +102,7 @@
 								'time' => $result['time'],
 								'message' => $result['message']
 							)),
-					'user' => Member::find($result['sender_id'])
+					'user' => User::find($result['sender_id'])
 				);
 			} else {
 				return null;

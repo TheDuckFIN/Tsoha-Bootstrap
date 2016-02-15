@@ -13,9 +13,8 @@
 			$sender = array();
 
 			foreach ($messages as $msg) {
-				$sender[$msg->id] = Member::find($msg->sender_id);
+				$sender[$msg->id] = User::find($msg->sender_id);
 			}
-
 
 			View::make('thread/show.html', array(
 				'thread' => $thread,
@@ -26,7 +25,7 @@
 		}
 
 		public static function create($id) {
-			View::make('thread/index.html');
+			View::make('thread/new.html');
 		}
 
 	}

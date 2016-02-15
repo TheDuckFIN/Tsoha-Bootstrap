@@ -26,7 +26,7 @@
 			$lastmsg = array();
 
 			foreach ($threads as $thread) {
-				$starter[$thread->id] = Member::find($thread->starter_id);
+				$starter[$thread->id] = User::find($thread->starter_id);
 				$postcount[$thread->id] = Thread::postcount($thread->id);
 				$lastmsg[$thread->id] = Message::last_message_by_thread_id($thread->id);
 			}
