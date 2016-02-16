@@ -9,7 +9,9 @@ Kärsin pitkittyneestä ebolasta, joten viikon tulos jäi vähän vähälle.
  * Viestien muokkaus ja poistaminen toimii vain omiin viesteihin
   * Jos kuitenkin haluaa lähteä hakkeroimaan, pystyy myös muoden viestejä todennäköisesti poistamaan/muokkaamaan. Kaikki on todella WIP, ja en ole vielä kerennyt mitään pahemmin suojaamaan. 
 
+Tunnukset näet dokumentaation lopusta. Luo vaikka uudet rekisteröintilomakkeella. Valmiita tunnuksia ovat vlakanie, modemies sekä jorma, kaikilla salasana on "salasana".
 
+## Yleistä
 
 Yleisiä linkkejä:
 
