@@ -24,7 +24,7 @@
 			$params = $_POST;
 
 			$message = new Message(array(
-				'sender_id' => get_user_logged_in()->id, 
+				'sender_id' => parent::get_user_logged_in()->id, 
 				'thread_id' => $params['thread'],
 				'message' => $params['message']
 			));
@@ -46,6 +46,18 @@
 				'board' => $board,
 				'message' => $message
 			));
+		}
+
+		public static function update() {
+			parent::check_logged_in();
+
+			$params = $_POST;
+
+			$message = Message::find($params['msg_id']);
+			$message->message = $params['message'];
+			$message->update();
+
+			Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Muokkaukset tallennettu!'));
 		}
 
 		public static function delete($id) {

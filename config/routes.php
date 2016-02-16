@@ -40,6 +40,10 @@
     PostController::index();
   });
 
+  $routes->post('/post/edit/', function() {
+    PostController::update();
+  });
+
   $routes->get('/post/edit/:id', function($id) {
     PostController::edit($id);
   });  

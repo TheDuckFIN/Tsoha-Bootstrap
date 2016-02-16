@@ -13,7 +13,7 @@
 </div>
 
 <form method="post" action="{{base_path}}/post/edit">
-	<input type="hidden" name="thread" value="{{thread.id}}">
+	<input type="hidden" name="msg_id" value="{{message.id}}">
 
 	<div class="form-group">
 		<button class="btn btn-default"><b>b</b></button>
@@ -25,14 +25,12 @@
 	</div>
 	<div class="form-group">
 		<label>Kuvaile muokkaustasi</label>
-		<input type="text" name="description" class="form-control">
+		<input type="text" name="description" value="tai älä, koska sillä ei oo mitää väliä :) TODO edit-historia" class="form-control">
 	</div>
 	<div class="form-group">
 		<button class="btn btn-default" disabled>Esikatselu</button>
-		<button class="btn btn-info" type="submit" disabled>Tallenna muutokset</button>
+		<button class="btn btn-info" type="submit">Tallenna muutokset</button>
 	</div>
 </form>
-
-<span style="font-size: 18px; color: #FF0000;">EI TOIMI VIELÄ KÄYTÄNNÖSSÄ! VAIN FORMI ON VALMIS!</span>
 
 {% endblock %}

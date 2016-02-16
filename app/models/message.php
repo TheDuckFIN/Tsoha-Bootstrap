@@ -135,6 +135,11 @@
 			$query->execute(array('sender_id' => $this->sender_id, 'thread_id' => $this->thread_id, 'message' => $this->message));
 		}
 
+		public function update() {
+			$query = DB::connection()->prepare('UPDATE Message SET message = :message WHERE id = :id');
+			$query->execute(array('message' => $this->message, 'id' => $this->id));
+		}
+
 		public function delete() {
 			$delete_msg = DB::connection()->prepare('DELETE FROM Message WHERE id = :id');
 			$delete_msg->execute(array('id' => $this->id));
