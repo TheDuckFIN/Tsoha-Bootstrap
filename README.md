@@ -1,23 +1,17 @@
 # Tietokantasovelluksen esittelysivu
 
-## Viikko 3 palautus huom!
-Toteutin viikolla aika monta modelia, kontrolleria ja viewiä!
+## Viikko 4
+Kärsin pitkittyneestä ebolasta, joten viikon tulos jäi vähän vähälle.
+* Suurin saavutus varmaan on käytännössä valmis kirjautumis/rekisteröitymissysteemi
+* Viikon vaatimuksissa mainittu **validointi** löytyy **User-modelista**, muualle en ole validointia ehtinyt toteuttaa
+* **Destroy** ja **update** löytyvät Message-modelista ja Post-kontrollerista. Toimivat myös käytännössä:
+ * Keskusteluja ei voi vieläkään luoda, mutta viestejä pystyy **luomaan, muokkaamaan ja poistamaan**
+ * Viestien muokkaus ja poistaminen toimii vain omiin viesteihin
+  * Jos kuitenkin haluaa lähteä hakkeroimaan, pystyy myös muoden viestejä todennäköisesti poistamaan/muokkaamaan. Kaikki on todella WIP, ja en ole vielä kerennyt mitään pahemmin suojaamaan. 
 
-* Etusivulla näkyvä kategorioiden ja aihealueiden listaus käytännössä valmis, varmaan hienosäätöä vielä tulevaisuudessa
-* Keskustelujen listaus aihealueella toimii (mutta listausjärjestys ei riipu uusimmasta viestistä, TODO!)
-* Uuden keskustelun luominen **EI OLE TOTEUTETTU**, teen sen ensi viikolla
-  * Valmiissa keskustelussa voi tosin **lähettää sekä poistaa viestejä**
-  * Viestin muokkaus toimii visuaalisesti, mutta tietokantaan tallennusta en vielä tehnyt
-* Rekisteröitymistä/kirjautumista en vielä toteuttanut. Kaikki viestit, jotka lähetät, kirjautuvat käyttäjälle **Jorma**, jonka profiilisivua et pysty katsomaan. **Ainoastaan käyttäjän vlakanie profiilisivu toimii, ja se on staattinen.**
-* Viikon pistevaatimuksissa mainitut metodit **all, find ja save** löytyvät ainakin luokasta **message**, kts. https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/app/models/message.php
-* Kontrollereiden vastuut eivät ole aivan yhtä selvät, sillä esimerkiksi BoardController hoitaa sekä kategorioita, että aihealueita.
-  * Viikon pistevaatimusten toisen kohdan toteuttaa todennäköisesti keskustelu.
-    * https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/app/controllers/thread_controller.php
-      * Keskustelut listaa metodi **index**
-      * Yksittäisen keskustelun esittelee metodi **show**, joka listaa kaikki keskustelun viestit. 
-    * https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/app/controllers/post_controller.php
-      * Uuden viestin lisäys keskusteluun onnistuu PostControllerin metodeilla **create** ja **store**, boonuksena myös metodi **delete** viestin poistamiseen.
-* Validoinnit puuttuvat vielä täysin, ja sovelluksessa pystyy tällä hetkellä tekemään ihan järjettömiäkin juttuja, mutta validointia ilmeisesti tulee ensi viikolla, joten se jääkööt sen ajan murheeksi. 
+Tunnukset näet dokumentaation lopusta. Luo vaikka uudet rekisteröintilomakkeella. Valmiita tunnuksia ovat vlakanie, modemies sekä jorma, kaikilla salasana on "salasana".
+
+## Yleistä
 
 Yleisiä linkkejä:
 
