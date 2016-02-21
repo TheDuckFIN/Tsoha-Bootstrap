@@ -55,7 +55,8 @@ CREATE TABLE Message (
 	thread_id INTEGER REFERENCES Thread(id),
 	sender_id INTEGER REFERENCES Member(id),
 	time timestamp NOT NULL,
-	message text NOT NULL
+	message text NOT NULL,
+	firstpost boolean NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Edit (
@@ -101,5 +102,6 @@ CREATE TABLE Received_message (
 
 
 CREATE TABLE Forum_settings (
-	name varchar(50) NOT NULL
+	name varchar(50) NOT NULL,
+	msg_size INTEGER NOT NULL
 );

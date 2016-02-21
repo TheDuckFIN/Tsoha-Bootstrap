@@ -26,7 +26,8 @@
 			$message = new Message(array(
 				'sender_id' => parent::get_user_logged_in()->id, 
 				'thread_id' => $params['thread'],
-				'message' => $params['message']
+				'message' => $params['message'],
+				'firstpost' => false
 			));
 
 			$message->save();

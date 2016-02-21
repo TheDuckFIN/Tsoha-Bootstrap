@@ -2,7 +2,7 @@
 	
 	class Message extends BaseModel {
 
-		public $id, $sender_id, $thread_id, $time, $message;
+		public $id, $sender_id, $thread_id, $time, $message, $firstpost;
 
 		public function __construct($attributes) {
 			parent::__construct($attributes);
@@ -17,13 +17,9 @@
 			));
 
 			$v->rule('required', 'message');
+			$v->rule('lengthMax', 'message', 25000);
 
-			if($v->validate()) {
-			    echo "Yay! We're all good!";
-			} else {
-			    // Errors
-			    print_r($v->errors());
-			}
+
 		}
 
 		public static function all() {
@@ -39,7 +35,8 @@
 					'sender_id' => $row['sender_id'],
 					'thread_id' => $row['thread_id'],
 					'time' => $row['time'],
-					'message' => $row['message']
+					'message' => $row['message'],
+					'firstpost' => $row['firstpost']
 				));	
 			}
 
@@ -59,7 +56,8 @@
 					'sender_id' => $row['sender_id'],
 					'thread_id' => $row['thread_id'],
 					'time' => $row['time'],
-					'message' => $row['message']
+					'message' => $row['message'],
+					'firstpost' => $row['firstpost']
 				));	
 			}
 
@@ -67,7 +65,7 @@
 		}
 
 		public static function last_message_by_board_id($board_id) {
-			$query = DB::connection()->prepare('SELECT m.id, m.thread_id, m.sender_id, m.time, m.message FROM Message m INNER JOIN Thread t ON t.id = m.thread_id INNER JOIN Board b ON b.id = t.board_id WHERE b.id = :id ORDER BY m.id DESC LIMIT 1');
+			$query = DB::connection()->prepare('SELECT m.id, m.thread_id, m.sender_id, m.time, m.message, m.firstpost FROM Message m INNER JOIN Thread t ON t.id = m.thread_id INNER JOIN Board b ON b.id = t.board_id WHERE b.id = :id ORDER BY m.id DESC LIMIT 1');
 			$query->execute(array('id' => $board_id));
 
 			$result = $query->fetch();
@@ -78,7 +76,8 @@
 								'id' => $result['id'],
 								'sender_id' => $result['sender_id'],
 								'time' => $result['time'],
-								'message' => $result['message']
+								'message' => $result['message'],
+								'firstpost' => $result['firstpost']
 							)),
 					'user' => User::find($result['sender_id']),
 					'thread' => Thread::find($result['thread_id'])
@@ -89,7 +88,7 @@
 		}
 
 		public static function last_message_by_thread_id($thread_id) {
-			$query = DB::connection()->prepare('SELECT m.id, m.sender_id, m.time, m.message FROM Message m INNER JOIN Thread t ON t.id = m.thread_id WHERE t.id = :id ORDER BY m.id DESC LIMIT 1');
+			$query = DB::connection()->prepare('SELECT m.id, m.sender_id, m.time, m.message, m.firstpost FROM Message m INNER JOIN Thread t ON t.id = m.thread_id WHERE t.id = :id ORDER BY m.id DESC LIMIT 1');
 			$query->execute(array('id' => $thread_id));
 
 			$result = $query->fetch();
@@ -100,7 +99,8 @@
 								'id' => $result['id'],
 								'sender_id' => $result['sender_id'],
 								'time' => $result['time'],
-								'message' => $result['message']
+								'message' => $result['message'],
+								'firstpost' => $result['firstpost']
 							)),
 					'user' => User::find($result['sender_id'])
 				);
@@ -121,7 +121,8 @@
 					'sender_id' => $row['sender_id'],
 					'thread_id' => $row['thread_id'],
 					'time' => $row['time'],
-					'message' => $row['message']
+					'message' => $row['message'],
+					'firstpost' => $row['firstpost']
 				));	
 
 				return $message;
@@ -131,8 +132,14 @@
 		}
 
 		public function save() {
-			$query = DB::connection()->prepare('INSERT INTO Message (sender_id, thread_id, time, message) VALUES (:sender_id, :thread_id, CURRENT_TIMESTAMP, :message)');
-			$query->execute(array('sender_id' => $this->sender_id, 'thread_id' => $this->thread_id, 'message' => $this->message));
+			$query = DB::connection()->prepare('INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (:sender_id, :thread_id, CURRENT_TIMESTAMP, :message, :firstpost)');
+			
+			$query->bindValue(':firstpost', $this->firstpost, PDO::PARAM_BOOL);
+			$query->bindValue(':sender_id', $this->sender_id, PDO::PARAM_INT);
+			$query->bindValue(':thread_id', $this->thread_id, PDO::PARAM_INT);
+			$query->bindValue(':message', $this->message, PDO::PARAM_STR);
+
+			$query->execute();
 		}
 
 		public function update() {

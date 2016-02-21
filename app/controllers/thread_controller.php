@@ -53,7 +53,8 @@
 			$message = new Message(array(
 				'sender_id' => parent::get_user_logged_in()->id, 
 				'thread_id' => $thread_id,
-				'message' => $params['message']
+				'message' => $params['message'],
+				'firstpost' => true
 			));
 
 			$message->save();

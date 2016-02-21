@@ -12,6 +12,12 @@
 	<h2>Vastaus keskusteluun "{{thread.title}}"</h2>
 </div>
 
+{% if error %}
+	<div class="alert alert-danger">
+		{{error}}
+	</div>
+{% endif %}
+
 <form method="post" action="{{base_path}}/post/new">
 	<input type="hidden" name="thread" value="{{thread.id}}">
 

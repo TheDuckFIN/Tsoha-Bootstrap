@@ -1,3 +1,5 @@
+INSERT INTO Forum_settings (name, msg_size) VALUES ('Keskustelupalsta', 25000);
+
 INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#000000', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
@@ -36,19 +38,19 @@ INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 2, 'adsadsa 
 INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 3, 'KeskAAIJFLSKAL', false);
 INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 1, 'örpöpröpö', false);
 
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 1, CURRENT_TIMESTAMP, 'Lorem ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (3, 1, CURRENT_TIMESTAMP, 'Lorem ipsum...', true);
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Loreadsdsam ipsum...');
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Lorem ipsdsadasum...');
 
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 2, CURRENT_TIMESTAMP, 'Lorem asdadasd...');
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 2, CURRENT_TIMESTAMP, 'Lorem asdadasd...', true);
 
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm ipasddsasum...');
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm ipasddsasum...', true);
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasdasdsadasdm ipsum...');
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasddasasdsaasdm ipsum...');
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 3, CURRENT_TIMESTAMP, 'Loreasdadaadasdm ipsum...');
 INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm iasdsapsum...');
 
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 4, CURRENT_TIMESTAMP, 'Lorem ipsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 5, CURRENT_TIMESTAMP, 'Lortretretwem igfdgfdgfdpsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 6, CURRENT_TIMESTAMP, 'Lorem ipsuytrtrurm...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 7, CURRENT_TIMESTAMP, 'Loremasddsadsa ipsum...');
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 4, CURRENT_TIMESTAMP, 'Lorem ipsum...', true);
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (2, 5, CURRENT_TIMESTAMP, 'Lortretretwem igfdgfdgfdpsum...', true);
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (3, 6, CURRENT_TIMESTAMP, 'Lorem ipsuytrtrurm...', true);
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 7, CURRENT_TIMESTAMP, 'Loremasddsadsa ipsum...', true);
