@@ -60,11 +60,7 @@
     PostController::create($id);
   });  
 
-  $routes->get('/post/delete/', function() {
-    PostController::index();
-  });
-
-  $routes->get('/post/delete/:id', function($id) {
+  $routes->post('/post/delete/:id', function($id) {
     PostController::delete($id);
   });
 
@@ -94,4 +90,8 @@
 
   $routes->get('/profile/:id', function($id) {
     UserController::show($id);
+  });
+
+  $routes->get('/usergroups/', function() {
+    UsergroupController::index();
   });

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
 
 <div class="forum-header">
@@ -32,7 +33,7 @@
 						<a href="#" class="btn btn-info btn-xs">Lainaa</a>
 						{% if user_logged_in.id == msg.sender_id %}
 							<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
-							<a href="{{base_path}}/post/delete/{{msg.id}}" class="btn btn-danger btn-xs">Poista</a>
+                            {{forms.destroy_button("#{base_path}/post/delete/#{msg.id}", "Poista", "btn-xs")}}
 						{% endif %}
 					{% endif %}
 				</span>
@@ -40,11 +41,9 @@
 
 			<div class="row undo-margins flex-row">
 				<div class="single-post-avatar col-xs-2">
-					<span class="post-username"><a href="{{base_path}}/profile/{{sender[msg.id].id}}">{{sender[msg.id].username}}</a></span><br>
-					<span style="color: #FF0000;">RYHMÄ</span><br>
-					Tähän avatar myöhemmin :)<br />
-					Käyttäjäryhmä ei pidä vielä paikkaansa, toteutan usergroupin ensi viikolla!
-					<!--<img src="http://i.imgur.com/OL8m8FS.png"></img>-->
+					<span class="post-username"><a href="{{base_path}}/profile/{{sender_info[msg.id].user.id}}">{{sender_info[msg.id].user.username}}</a></span><br>
+					<span style="color: {{sender_info[msg.id].usergroup.color}};">{{sender_info[msg.id].usergroup.name}}</span><br /><br />
+					<img src="{{base_path}}/assets/img/default_avatar.png"></img>
 				</div>
 				<div class="single-post-content col-xs-10">
 					{{msg.message}}

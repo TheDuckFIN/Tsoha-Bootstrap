@@ -17,7 +17,7 @@
 {% endif %}
 
 <div class="profile">
-	<img src="http://i.imgur.com/OL8m8FS.png"></img>
+	<img src="{{base_path}}/assets/img/default_avatar.png"></img>
 
 	<table class="profile-table table-striped-custom">
 		<tbody>
@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td><b>Käyttäjäryhmä:</b></td>
-				<td><span style="color: #FF0000;">Ylläpitäjä</span></td>
+				<td><span style="color: {{group.color}};">{{group.name}}</span></td>
 			</tr>
 			<tr>
 				<td><b>Sähköposti:</b></td>

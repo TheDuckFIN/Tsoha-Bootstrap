@@ -10,17 +10,22 @@
 			$thread = Thread::find($id);
 			$board = Board::find($thread->board_id);
 			$messages = Message::all_by_thread_id($id);
-			$sender = array();
+			$sender_info = array();
 
 			foreach ($messages as $msg) {
-				$sender[$msg->id] = User::find($msg->sender_id);
+				$user = User::find($msg->sender_id);
+
+				$sender_info[$msg->id] = array(
+					'user' => $user,
+					'usergroup' => Usergroup::find($user->usergroup_id)
+				);
 			}
 
 			View::make('thread/show.html', array(
 				'thread' => $thread,
 				'board' => $board,
 				'messages' => $messages,
-				'sender' => $sender
+				'sender_info' => $sender_info
 			));
 		}
 
@@ -37,7 +42,23 @@
 
 			$params = $_POST;
 
-			echo 'wip!';
+			$thread = new Thread(array(
+				'board_id' => $params['board_id'],
+				'starter_id' => parent::get_user_logged_in()->id,
+				'title' => $params['title']	
+			));
+
+			$thread_id = $thread->save();
+
+			$message = new Message(array(
+				'sender_id' => parent::get_user_logged_in()->id, 
+				'thread_id' => $thread_id,
+				'message' => $params['message']
+			));
+
+			$message->save();
+
+			Redirect::to('/thread/' . $thread_id, array('alert_msg' => 'Keskustelu luotu onnistuneesti!'));
 		}
 
 	}

@@ -1,20 +1,20 @@
 INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#000000', true);
-INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
+INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
 
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
 	VALUES (1, false, false, false, false, false, false, false, false, false);
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
-	VALUES (2, true, true, true, true, true, true, true, true, true);
+    VALUES (2, true, true, true, true, true, false, false, false, false);
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
-	VALUES (3, true, true, true, true, true, false, false, false, false);
+	VALUES (3, true, true, true, true, true, true, true, true, true);
 
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (2, 'vlakanie', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (3, 'vlakanie', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
 	VALUES  (1, 'jorma', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (3, 'modemies', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (2, 'modemies', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 
 INSERT INTO Category (name) VALUES ('Yleinen');
 

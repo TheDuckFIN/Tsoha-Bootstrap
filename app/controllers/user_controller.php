@@ -8,8 +8,9 @@
 
 		public static function show($id) {
 			$user = User::find($id);
+			$group = Usergroup::find($user->usergroup_id);
 
-			View::make("user/show.html", array('user' => $user));
+			View::make("user/show.html", array('user' => $user, 'group' => $group));
 		}
 
 		public static function logout() {

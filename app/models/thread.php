@@ -78,4 +78,17 @@
 			return $threads;
 		}
 
+		public function save() {
+			$query = DB::connection()->prepare('INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (:board_id, :starter_id, :title, false) RETURNING id');
+			$query->execute(array(
+				'board_id' => $this->board_id,
+				'starter_id' => $this->starter_id,
+				'title' => $this->title
+		    ));
+
+			$row = $query->fetch();
+
+			return $row['id'];
+		}
+
 	}
