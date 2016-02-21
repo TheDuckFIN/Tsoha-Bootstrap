@@ -68,6 +68,8 @@
 
 			if ($message == NULL) {
 				View::make('post/index.html');
+			}elseif ($message->firstpost) {
+				Redirect::to('/', array('message' => 'Et voi poistaa keskstelun ensimmäistä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
 			}else {
 				$message->delete();
 				Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti poistettu onnistuneesti!'));

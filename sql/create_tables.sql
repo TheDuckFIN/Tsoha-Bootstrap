@@ -102,6 +102,7 @@ CREATE TABLE Received_message (
 
 
 CREATE TABLE Forum_settings (
+	id SERIAL PRIMARY KEY,
 	name varchar(50) NOT NULL,
 	msg_size INTEGER NOT NULL
 );

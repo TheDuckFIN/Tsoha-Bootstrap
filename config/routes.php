@@ -95,3 +95,7 @@
   $routes->get('/usergroups/', function() {
     UsergroupController::index();
   });
+
+  $routes->get('/settings/', function() {
+    ForumSettingsController::index();
+  });

@@ -12,13 +12,25 @@
 			$thread = Thread::find($this->thread_id);
 
 			$v = new Valitron\Validator(array(
-				'message' => $this->message,
-				'thread_locked' => $thread->locked
+				'message' => $this->message
 			));
 
 			$v->rule('required', 'message');
-			$v->rule('lengthMax', 'message', 25000);
+			$v->rule('lengthMax', 'message', ForumSettings::get('msg_size'));
 
+			$v->validate();
+
+			$current_errors = parent::format_errors($v->errors());
+
+			if ($thread->locked) {
+				$current_errors[] = 'Ketju on lukittu';
+			}
+
+			if (empty($current_errors)) {
+				return true;
+			}else {
+				return $current_errors;
+			}
 
 		}
 
