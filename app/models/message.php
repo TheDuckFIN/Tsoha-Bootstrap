@@ -8,22 +8,24 @@
 			parent::__construct($attributes);
 		}
 
-		public function validate() {
+		public function validate($nolockcheck) {
 			$thread = Thread::find($this->thread_id);
 
 			$v = new Valitron\Validator(array(
-				'message' => $this->message
+				'viesti' => $this->message
 			));
 
-			$v->rule('required', 'message');
-			$v->rule('lengthMax', 'message', ForumSettings::get('msg_size'));
+			$v->rule('required', 'viesti');
+			$v->rule('lengthMax', 'viesti', ForumSettings::get('msg_size'));
 
 			$v->validate();
 
 			$current_errors = parent::format_errors($v->errors());
 
-			if ($thread->locked) {
-				$current_errors[] = 'Ketju on lukittu';
+			if (!$nolockcheck) {
+				if ($thread->locked) {
+					$current_errors[] = 'Ketju on lukittu';
+				}	
 			}
 
 			if (empty($current_errors)) {
@@ -56,7 +58,9 @@
 		}
 
 		public static function all_by_thread_id($thread_id) {
-			$query = DB::connection()->prepare('SELECT * FROM Message WHERE thread_id = :id');
+			if (!parent::valid_int($thread_id)) return null;
+
+			$query = DB::connection()->prepare('SELECT * FROM Message WHERE thread_id = :id ORDER BY time');
 			$query->execute(array('id' => $thread_id));
 
 			$rows = $query->fetchAll();
@@ -77,6 +81,8 @@
 		}
 
 		public static function last_message_by_board_id($board_id) {
+			if (!parent::valid_int($board_id)) return null;
+
 			$query = DB::connection()->prepare('SELECT m.id, m.thread_id, m.sender_id, m.time, m.message, m.firstpost FROM Message m INNER JOIN Thread t ON t.id = m.thread_id INNER JOIN Board b ON b.id = t.board_id WHERE b.id = :id ORDER BY m.id DESC LIMIT 1');
 			$query->execute(array('id' => $board_id));
 
@@ -100,6 +106,8 @@
 		}
 
 		public static function last_message_by_thread_id($thread_id) {
+			if (!parent::valid_int($thread_id)) return null;
+
 			$query = DB::connection()->prepare('SELECT m.id, m.sender_id, m.time, m.message, m.firstpost FROM Message m INNER JOIN Thread t ON t.id = m.thread_id WHERE t.id = :id ORDER BY m.id DESC LIMIT 1');
 			$query->execute(array('id' => $thread_id));
 
@@ -122,6 +130,8 @@
 		}
 
 		public static function find($id) {
+			if (!parent::valid_int($id)) return null;
+
 			$query = DB::connection()->prepare('SELECT * FROM Message WHERE id = :id LIMIT 1');
 			$query->execute(array('id' => $id));
 

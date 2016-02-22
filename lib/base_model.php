@@ -27,6 +27,18 @@
       return $ret;
     }
 
+    public static function valid_int($var) {
+      if ((string)(int)$var == $var) {
+        if (((int)$var <= 2147483647) && (int)$var > 0) {
+          return true;
+        }else {
+          return false;
+        }
+      }else {
+        return false;
+      }
+    }
+
     /*
     public function errors(){
       // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona

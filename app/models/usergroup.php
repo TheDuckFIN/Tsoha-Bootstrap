@@ -16,7 +16,7 @@
             $usergroups = array();
 
             foreach ($rows as $row) {
-                $usergroups[] = new Usergroup(array(
+                $usergroups[$row['id']] = new Usergroup(array(
                     'id' => $row['id'],
                     'name' => $row['name'],
                     'color' => $row['color'],
@@ -53,9 +53,9 @@
 
         public function checkPermission($name) {
             $all = $this->permissions();
-            
+
             if (property_exists('Permission', $name)) {
-                return $all->$name;
+                return $all->{$name};
             }else {
                 return null;
             }

@@ -24,18 +24,31 @@
       $user = self::get_user_logged_in();
 
       if (!$user) {
-        Redirect::to('/login', array('error' => 'Toiminto vaatii sisäänkirjautumista!'));
+        return false;
       }else {
         $usergroup = Usergroup::find($user->usergroup_id);
         $permission = $usergroup->checkPermission($name);
 
-        if ($permission == NULL) {
+        if ($permission === NULL) {
           exit("Error: Invalid permission: " . $name);
         }else {
           return $permission;
         }
       }
+    }
 
+    public static function permission_array() {
+      return array(
+        'edit_message' => self::has_permission('edit_message'),
+        'delete_message' => self::has_permission('delete_message'),
+        'delete_thread' => self::has_permission('delete_thread'),
+        'lock_thread' => self::has_permission('lock_thread'),
+        'ban' => self::has_permission('ban'),
+        'boardmanagement' => self::has_permission('boardmanagement'),
+        'usergroupmanagement' => self::has_permission('usergroupmanagement'),
+        'settingsmanagement' => self::has_permission('settingsmanagement'),
+        'usermanagement' => self::has_permission('usermanagement')
+      );
     }
 
   }

@@ -18,6 +18,10 @@
           $content['user_logged_in'] = BaseController::get_user_logged_in();
         }
 
+        if(method_exists('BaseController', 'permission_array')){
+          $content['permissions'] = BaseController::permission_array();
+        }
+
         if(method_exists('ForumSettings', 'get')){
           $content['forum_name'] = ForumSettings::get('name');
         }

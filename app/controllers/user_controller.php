@@ -2,12 +2,19 @@
 
 	class UserController extends BaseController {
 		public static function index() {
-			//käyttäjälistaus?
-			echo 'WIP';
+			$users = User::all();
+			$groups = Usergroup::all();
+
+			View::make("user/index.html", array('users' => $users, 'group' => $groups));
 		}
 
 		public static function show($id) {
 			$user = User::find($id);
+
+			if (!$user) {
+				Redirect::to('/', array('message' => 'Käyttäjän ID virheellinen!', 'style' => 'danger'));
+			}
+
 			$group = Usergroup::find($user->usergroup_id);
 
 			View::make("user/show.html", array('user' => $user, 'group' => $group));

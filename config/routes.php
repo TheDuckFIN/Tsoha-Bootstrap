@@ -28,6 +28,10 @@
     ThreadController::store();
   });
 
+  $routes->post('/thread/delete/:id', function($id) {
+    ThreadController::delete($id);
+  });
+
   $routes->get('/thread/:id', function($id) {
     ThreadController::show($id);  
   });
@@ -90,6 +94,10 @@
 
   $routes->get('/profile/:id', function($id) {
     UserController::show($id);
+  });
+
+  $routes->get('/users/', function() {
+    UserController::index();
   });
 
   $routes->get('/usergroups/', function() {

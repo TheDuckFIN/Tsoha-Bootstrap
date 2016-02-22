@@ -12,15 +12,24 @@
 	<h2>{{thread.title}}</h2>
 </div>
 
-<div class="buttons">
-	<a class="btn btn-info" href="{{base_path}}/post/new/{{thread.id}}" role="button">Vastaa keskusteluun</a>
-</div>
-
 {% if alert_msg %}
 	<div class="alert alert-success">
 		{{alert_msg}}
 	</div>
 {% endif %}
+
+<div class="buttons">
+	<form action="{{base_path}}/post/new/{{thread.id}}" method="get" style="display: inline-block">
+		{% if thread.locked %}
+			<button class="btn btn-info" type="submit" disabled>Vastaa keskusteluun</button>
+		{% else %}
+			<button class="btn btn-info" type="submit">Vastaa keskusteluun</button>
+		{% endif %}
+	</form>
+	{% if permissions.delete_thread %}
+		{{forms.destroy_button("#{base_path}/thread/delete/#{thread.id}", "Poista keskustelu")}}
+	{% endif %}
+</div>
 
 <div class="post-content">
 	{% for msg in messages %}
@@ -30,12 +39,14 @@
 				
 				<span class="single-post-header-buttons">
 					{% if user_logged_in %}
-						<a href="#" class="btn btn-info btn-xs">Lainaa</a>
-						{% if user_logged_in.id == msg.sender_id %}
-							<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
-                        {% endif %}
+						{% if thread.locked == false %}
+							<a href="#" class="btn btn-info btn-xs">Lainaa</a>
+							{% if (user_logged_in.id == msg.sender_id) or permissions.edit_message %}
+								<a href="{{base_path}}/post/edit/{{msg.id}}" class="btn btn-info btn-xs">Muokkaa</a>
+	                        {% endif %}
+	                    {% endif %}
 
-						{% if msg.firstpost == false %}
+						{% if (msg.firstpost == false) and permissions.delete_message %}
 						    {{forms.destroy_button("#{base_path}/post/delete/#{msg.id}", "Poista", "btn-xs")}}
 						{% endif %}
 					{% endif %}
@@ -44,8 +55,8 @@
 
 			<div class="row undo-margins flex-row">
 				<div class="single-post-avatar col-xs-2">
-					<span class="post-username"><a href="{{base_path}}/profile/{{sender_info[msg.id].user.id}}">{{sender_info[msg.id].user.username}}</a></span><br>
-					<span style="color: {{sender_info[msg.id].usergroup.color}};">{{sender_info[msg.id].usergroup.name}}</span><br /><br />
+					<span class="post-username"><a href="{{base_path}}/profile/{{user[msg.id].id}}">{{user[msg.id].username}}</a></span><br>
+					<span style="color: {{group[user[msg.id].usergroup_id].color}};">{{group[user[msg.id].usergroup_id].name}}</span><br /><br />
 					<img src="{{base_path}}/assets/img/default_avatar.png"></img>
 				</div>
 				<div class="single-post-content col-xs-10">

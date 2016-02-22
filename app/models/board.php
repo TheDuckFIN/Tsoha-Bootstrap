@@ -28,6 +28,8 @@
 		}
 
 		public static function find($id) {
+			if (!parent::valid_int($id)) return null;
+
 			$query = DB::connection()->prepare('SELECT * FROM Board WHERE id = :id LIMIT 1');
 			$query->execute(array('id' => $id));
 

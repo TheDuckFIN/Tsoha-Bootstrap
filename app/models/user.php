@@ -42,7 +42,7 @@
 		}
 
 		public static function all() {
-			$query = DB::connection()->prepare('SELECT * FROM Member');
+			$query = DB::connection()->prepare('SELECT * FROM Member ORDER BY id');
 			$query->execute();
 
 			$rows = $query->fetchAll();
@@ -66,6 +66,8 @@
 		}
 
 		public static function find($id) {
+			if (!parent::valid_int($id)) return null;
+
 			$query = DB::connection()->prepare('SELECT * FROM Member WHERE id = :id LIMIT 1');
 			$query->execute(array('id' => $id));
 
@@ -91,7 +93,7 @@
 		}
 
 		public static function authenticate($username, $password) {
-			$query = DB::connection()->prepare('SELECT * FROM Member WHERE username = :username AND password = :password LIMIT 1');
+			$query = DB::connection()->prepare('SELECT * FROM Member WHERE UPPER(username) = UPPER(:username) AND password = :password LIMIT 1');
 			$query->execute(array('username' => $username, 'password' => $password));
 			$row = $query->fetch();
 

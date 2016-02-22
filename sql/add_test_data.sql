@@ -1,6 +1,6 @@
 INSERT INTO Forum_settings (name, msg_size) VALUES ('Keskustelupalsta', 25000);
 
-INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#000000', true);
+INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#333333', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
 

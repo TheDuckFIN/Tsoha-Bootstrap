@@ -10,6 +10,11 @@
 			parent::check_logged_in();
 
 			$thread = Thread::find($id);
+
+			if (!$thread) {
+				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+			}
+
 			$board = Board::find($thread->board_id);
 
 			View::make('post/new.html', array(
@@ -23,6 +28,10 @@
 
 			$params = $_POST;
 
+			if (!Thread::find($params['thread'])) {
+				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+			}
+
 			$message = new Message(array(
 				'sender_id' => parent::get_user_logged_in()->id, 
 				'thread_id' => $params['thread'],
@@ -30,23 +39,46 @@
 				'firstpost' => false
 			));
 
-			$message->save();
+			$valid = $message->validate(false);
 
-			Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti lähetetty onnistuneesti!'));
+			if (!is_array($valid)) {
+				$message->save();
+
+				Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti lähetetty onnistuneesti!'));		
+			}else {
+				$thread = Thread::find($params['thread']);
+				$board = Board::find($thread->board_id);
+
+				View::make('post/new.html', array(
+					'errors' => $valid, 
+					'message' => $params['message'], 
+					'thread' => $thread,
+					'board' => $board
+				));
+			}
 		}
 
 		public static function edit($id) {
 			parent::check_logged_in();
 
 			$message = Message::find($id);
+
+			if (!$message) {
+				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
+			}
+
 			$thread = Thread::find($message->thread_id);
 			$board = Board::find($thread->board_id);
 
-			View::make('post/edit.html', array(
-				'thread' => $thread,
-				'board' => $board,
-				'message' => $message
-			));
+			if ((parent::get_user_logged_in()->id == $message->sender_id) || parent::has_permission('edit_message')) {
+				View::make('post/edit.html', array(
+					'thread' => $thread,
+					'board' => $board,
+					'message' => $message
+				));
+			}else {
+				Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
+			}
 		}
 
 		public static function update() {
@@ -55,10 +87,34 @@
 			$params = $_POST;
 
 			$message = Message::find($params['msg_id']);
-			$message->message = $params['message'];
-			$message->update();
 
-			Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Muokkaukset tallennettu!'));
+			if (!$message) {
+				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
+			}
+
+			$message->message = $params['message'];
+
+			if ((parent::get_user_logged_in()->id == $message->sender_id) || parent::has_permission('edit_message')) {
+				$valid = $message->validate(false);
+
+				if (!is_array($valid)) {
+					$message->update();
+
+					Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Muokkaukset tallennettu!'));
+				}else {
+					$thread = Thread::find($message->thread_id);
+					$board = Board::find($thread->board_id);
+
+					View::make('post/edit.html', array(
+						'errors' => $valid, 
+						'message' => $message, 
+						'thread' => $thread,
+						'board' => $board
+					));
+				}
+			}else {
+				Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
+			}
 		}
 
 		public static function delete($id) {
@@ -67,12 +123,16 @@
 			$message = Message::find($id);
 
 			if ($message == NULL) {
-				View::make('post/index.html');
+				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
 			}elseif ($message->firstpost) {
 				Redirect::to('/', array('message' => 'Et voi poistaa keskstelun ensimmäistä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
 			}else {
-				$message->delete();
-				Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti poistettu onnistuneesti!'));
+				if (parent::has_permission('delete_message')) {
+					$message->delete();
+					Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti poistettu onnistuneesti!'));
+				}else {
+					Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia poistaa viestejä! Älä yritä huijata :(', 'style' => 'danger'));
+				}
 			}
 		}
 

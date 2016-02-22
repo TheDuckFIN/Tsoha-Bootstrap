@@ -8,6 +8,26 @@
 			parent::__construct($attributes);
 		}
 
+		public function validate() {
+			$v = new Valitron\Validator(array(
+				'otsikko' => $this->title
+			));
+
+			$v->rule('required', 'otsikko');
+			$v->rule('lengthMax', 'otsikko', 50);
+
+			$v->validate();
+
+			$current_errors = parent::format_errors($v->errors());
+
+			if (empty($current_errors)) {
+				return true;
+			}else {
+				return $current_errors;
+			}
+
+		}
+
 		public static function all() {
 			$query = DB::connection()->prepare('SELECT * FROM Thread');
 			$query->execute();
@@ -29,6 +49,8 @@
 		}
 
 		public static function find($id) {
+			if (!parent::valid_int($id)) return null;
+
 			$query = DB::connection()->prepare('SELECT * FROM Thread WHERE id = :id LIMIT 1');
 			$query->execute(array('id' => $id));
 
@@ -50,6 +72,8 @@
 		}
 
 		public static function postcount($thread_id) {
+			if (!parent::valid_int($thread_id)) return null;
+
 			$query = DB::connection()->prepare('SELECT COUNT(*) FROM Message WHERE thread_id = :id');
 			$query->execute(array('id' => $thread_id));
 
@@ -59,6 +83,8 @@
 		}
 
 		public static function find_all_by_board($board_id) {
+			if (!parent::valid_int($board_id)) return null;
+
 			$query = DB::connection()->prepare('SELECT * FROM Thread WHERE board_id = :id');
 			$query->execute(array('id' => $board_id));
 
@@ -89,6 +115,17 @@
 			$row = $query->fetch();
 
 			return $row['id'];
+		}
+
+		public function delete() {
+			$thread_messages = Message::all_by_thread_id($this->id);
+
+			foreach ($thread_messages as $msg) {
+				$msg->delete();
+			}
+
+			$delete_thread = DB::connection()->prepare('DELETE FROM Thread WHERE id = :id');
+			$delete_thread->execute(array('id' => $this->id));
 		}
 
 	}

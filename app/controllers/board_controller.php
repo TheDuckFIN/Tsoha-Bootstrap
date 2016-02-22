@@ -20,6 +20,11 @@
 
 		public static function show($id) {
 			$board = Board::find($id);
+
+			if (!$board) {
+				Redirect::to('/', array('message' => 'Keskustelualueen ID virheellinen!', 'style' => 'danger'));
+			}
+
 			$threads = Thread::find_all_by_board($id);
 			$starter = array();
 			$postcount = array();

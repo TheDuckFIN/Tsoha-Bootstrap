@@ -1,15 +1,6 @@
 # Tietokantasovelluksen esittelysivu
 
-## Viikko 4
-Kärsin pitkittyneestä ebolasta, joten viikon tulos jäi vähän vähälle.
-* Suurin saavutus varmaan on käytännössä valmis kirjautumis/rekisteröitymissysteemi
-* Viikon vaatimuksissa mainittu **validointi** löytyy **User-modelista**, muualle en ole validointia ehtinyt toteuttaa
-* **Destroy** ja **update** löytyvät Message-modelista ja Post-kontrollerista. Toimivat myös käytännössä:
- * Keskusteluja ei voi vieläkään luoda, mutta viestejä pystyy **luomaan, muokkaamaan ja poistamaan**
- * Viestien muokkaus ja poistaminen toimii vain omiin viesteihin
-  * Jos kuitenkin haluaa lähteä hakkeroimaan, pystyy myös muoden viestejä todennäköisesti poistamaan/muokkaamaan. Kaikki on todella WIP, ja en ole vielä kerennyt mitään pahemmin suojaamaan. 
-
-Tunnukset näet dokumentaation lopusta. Luo vaikka uudet rekisteröintilomakkeella. Valmiita tunnuksia ovat vlakanie, modemies sekä jorma, kaikilla salasana on "salasana".
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 ## Yleistä
 
