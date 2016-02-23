@@ -12,3 +12,5 @@ Moi! Projektisi näyttää edistyneen oikein mallikkaasti :) Tässä muutamia ke
     - Nämä johtuvat siitä, ettei missään välissä tarkasteta onko käyttäjän antama id validi kokonaisluku, tai edes kokonaisluku ollenkaan, jolloin PostreSQL suuttuu, kun saa vääränlaisen syötteen. Tämä on kuitenkin pientä "hifistelyä" eikä välttämättä kurssin kannalta ole olennaista lähteä id:tä validoimaan, kun järjestelmän oikein toimiessa ei pitäisi käyttäjän joutua sellaiseen tilanteeseen, missä id olisi epävalidi.
         + Yksi minkä voisi tosin korjata on seuraava: http://mkjarvi.users.cs.helsinki.fi/kurssikysely_tsoha/kysely/20
             * Tämä johtuu siitä, ettet tarkista missään vaiheessa kyselyt_controller.php:ssa onko kyselyä tällä ID:llä löydetty kannasta. Kun kutsut $kysely = Kysely::find($id);, tulee muuttujan $kysely arvoksi NULL jos kyselyä ei ole kannassa, eli voit kyseisen rivin jälkeen käskeä if (!$kysely) { ...toteuta virheilmoitus... }
+
+Kaiken kaikkiaan projektisi vaikuttaa kuitenkin edistyvän oikein hyvin, tsemppiä loppukurssille! 
