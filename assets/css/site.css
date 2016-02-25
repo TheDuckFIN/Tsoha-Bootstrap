@@ -9,6 +9,22 @@ body {
   margin-bottom: 128px;
 }
 
+.profile_header {
+    margin-top: 12px;
+}
+
+.profile_header td {
+    padding-right: 12px;
+}
+
+.profile td {
+    vertical-align: top;
+}
+
+.profile_header h2 {
+    margin: 0px;
+}
+
 .navbar .container-fluid{
   max-width: 1200px;
   margin: 0px auto;

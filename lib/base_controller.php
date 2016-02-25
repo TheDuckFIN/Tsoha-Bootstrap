@@ -42,17 +42,20 @@
     }
 
     public static function permission_array() {
-      return array(
-        'edit_message' => self::has_permission('edit_message'),
-        'delete_message' => self::has_permission('delete_message'),
-        'delete_thread' => self::has_permission('delete_thread'),
-        'lock_thread' => self::has_permission('lock_thread'),
-        'ban' => self::has_permission('ban'),
-        'boardmanagement' => self::has_permission('boardmanagement'),
-        'usergroupmanagement' => self::has_permission('usergroupmanagement'),
-        'settingsmanagement' => self::has_permission('settingsmanagement'),
-        'usermanagement' => self::has_permission('usermanagement')
-      );
+      $permissions = array('edit_message', 'delete_message', 'delete_thread', 'lock_thread', 'ban',
+          'boardmanagement', 'usergroupmanagement', 'settingsmanagement', 'usermanagement');
+      $logged_in = self::get_user_logged_in();
+
+      if (!$logged_in) {
+        $ret = array();
+        foreach ($permissions as $key) {
+          $ret[$key] = false;
+        }
+        return $ret;
+      }else {
+        $usergroup_permissions = Permission::find($logged_in->usergroup_id);
+        return (array)$usergroup_permissions;
+      }
     }
 
     public static function bbcodeify($text) {

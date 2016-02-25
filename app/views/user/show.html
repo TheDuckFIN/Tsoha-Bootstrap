@@ -6,8 +6,6 @@
 		<a href="{{base_path}}">Etusivu</a> < 
 		<a href="{{base_path}}/profile/{{user.id}}">{{user.username}}</a>
 	</small>
-	
-	<h2>{{user.username}}</h2>
 </div>
 
 {% if message %}
@@ -17,44 +15,67 @@
 {% endif %}
 
 <div class="profile">
-	<img src="{{base_path}}/assets/img/default_avatar.png"></img>
-
-	<table class="profile-table table-striped-custom">
-		<tbody>
+	<div class="profile_header">
+		<table>
 			<tr>
-				<td><b>Rekisteröitynyt:</b></td>
-				<td>{{user.registered}}</td>
-			</tr>
-			<tr>
-				<td><b>Käyttäjäryhmä:</b></td>
-				<td><span style="color: {{group.color}};">{{group.name}}</span></td>
-			</tr>
-			<tr>
-				<td><b>Viestimäärä:</b></td>
-				<td>{{user.postcount()}}</td>
-			</tr>
-			<tr>
-				<td><b>Sähköposti:</b></td>
 				<td>
-					{% if user.show_email %}
-						<a href="mailto:{{user.email}}">{{user.email}}</a>
-					{% else %}
-						<i>Käyttäjä on piilottanut sähköpostiosoitteensa</i>
-					{% endif %}
+					<img src="{{base_path}}/assets/img/default_avatar.png"></img>
+				</td>
+				<td>
+					<h2>{{user.username}}</h2>
+					<span style="color: {{group.color}}; font-size: 16px"><b>{{group.name}}</b></span>
 				</td>
 			</tr>
-			<tr>
-				<td><b>Tietoja minusta:</b></td>
-				<td>
-					{% if user.info %}
-						{{user.info}}
-					{% else %}
-						<i>Käyttäjä ei ole antanut kuvausta itsestään.</i>
-					{% endif %}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+		</table>	
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-6">
+			<h3>Yleistä tietoa</h3>
+			<table class="profile-table table-striped-custom">
+				<tbody>
+					<tr>
+						<td style="min-width: 150px;"><b>Rekisteröitynyt:</b></td>
+						<td style="width: 100%;">{{user.registered}}</td>
+					</tr>
+					<tr>
+						<td><b>Viestimäärä:</b></td>
+						<td>{{user.postcount()}}</td>
+					</tr>
+					<tr>
+						<td><b>Sähköposti:</b></td>
+						<td>
+							{% if user.show_email %}
+								<a href="mailto:{{user.email}}">{{user.email}}</a>
+							{% else %}
+								<i>Käyttäjä on piilottanut sähköpostiosoitteensa</i>
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<td><b>Tietoja minusta:</b></td>
+						<td>
+							{% if user.info %}
+								{{user.info}}
+							{% else %}
+								<i>Käyttäjä ei ole antanut kuvausta itsestään.</i>
+							{% endif %}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-6">
+			<h3>Käyttäjän saavutukset</h3>
+			<em>Käyttäjällä ei ole vielä yhtään saavutusta</em>
+		</div>
+	</div>
 </div>
+
+{% if (user_logged_in.id == user.id) or permissions.usermanagement %}
+	<div style="margin-top: 12px;">
+		<a href="{{base_path}}/user/{{user.id}}/settings" class="btn btn-primary">Muokkaa asetuksia</a>
+	</div>
+{% endif %}
 
 {% endblock %}

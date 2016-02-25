@@ -8,29 +8,42 @@
 			parent::__construct($attributes);
 		}
 
-		public static function validateRegister($username, $password, $password2, $email) {
+		public static function validate($username, $password, $password2, $email, $description) {
 			$v = new Valitron\Validator(array(
 				'Käyttäjätunnus' => $username,
 				'Salasana' => $password,
 				'Salasana uudestaan' => $password2,
-				'Email' => $email
+				'Email' => $email,
+				'Kuvaus' => $description
 			));
 
-			$v->rule('required', 'Käyttäjätunnus');
-			$v->rule('required', 'Salasana');
-			$v->rule('required', 'Salasana uudestaan');
-			$v->rule('required', 'Email');
-			$v->rule('lengthMin', 'Käyttäjätunnus', 3);
-			$v->rule('lengthMax', 'Käyttäjätunnus', 20);
-			$v->rule('email', 'Email');
-			$v->rule('equals', 'Salasana', 'Salasana uudestaan');
-			$v->rule('lengthMin', 'Salasana', 8);
+			if (isset($username)) {
+				$v->rule('required', 'Käyttäjätunnus');
+				$v->rule('lengthMin', 'Käyttäjätunnus', 3);
+				$v->rule('lengthMax', 'Käyttäjätunnus', 20);
+			} 
+
+			if (isset($password)) {
+				$v->rule('required', 'Salasana');
+				$v->rule('required', 'Salasana uudestaan');
+				$v->rule('equals', 'Salasana', 'Salasana uudestaan');
+				$v->rule('lengthMin', 'Salasana', 8);
+			}
+
+			if (isset($email)) {
+				$v->rule('required', 'Email');
+				$v->rule('email', 'Email');
+			}
+
+			if (isset($description)) {
+				$v->rule('lengthMax', 'Kuvaus', 400);
+			}
 
 			$v->validate();
 
 			$current_errors = parent::format_errors($v->errors());
 
-			if (self::username_exists($username)) {
+			if (isset($username) && self::username_exists($username)) {
 				$current_errors[] = 'Käyttäjätunnus on jo olemassa, valitse jokin toinen';
 			}
 
@@ -41,6 +54,35 @@
 			}
 		}
 
+		public static function find($id) {
+			if (!parent::valid_int($id)) return null;
+
+			$query = DB::connection()->prepare('SELECT * FROM Member WHERE id = :id LIMIT 1');
+			$query->execute(array('id' => $id));
+
+			$row = $query->fetch();
+			
+			if ($row) {
+				$time = date_create($row['registered']);
+
+				$user = new User(array(
+					'id' => $row['id'],
+					'usergroup_id' => $row['usergroup_id'],
+					'username' => $row['username'],
+					'password' => $row['password'],
+					'email' => $row['email'],
+					'show_email' => $row['show_email'],
+					'registered' => date_format($time, "d.m.Y H:i:s"),
+					'avatar' => $row['avatar'],
+					'info' => $row['info']
+				));	
+
+				return $user;
+			}
+
+			return null;
+		}
+
 		public static function all() {
 			$query = DB::connection()->prepare('SELECT * FROM Member ORDER BY id');
 			$query->execute();
@@ -49,6 +91,8 @@
 			$users = array();
 
 			foreach ($rows as $row) {
+				$time = date_create($row['registered']);
+				
 				$users[$row['id']] = new User(array(
 					'id' => $row['id'],
 					'usergroup_id' => $row['usergroup_id'],
@@ -56,7 +100,7 @@
 					'password' => $row['password'],
 					'email' => $row['email'],
 					'show_email' => $row['show_email'],
-					'registered' => $row['registered'],
+					'registered' => date_format($time, "d.m.Y H:i:s"),
 					'avatar' => $row['avatar'],
 					'info' => $row['info']
 				));	
@@ -78,62 +122,66 @@
 			}
 		}
 
-		public static function find($id) {
-			if (!parent::valid_int($id)) return null;
-
-			$query = DB::connection()->prepare('SELECT * FROM Member WHERE id = :id LIMIT 1');
-			$query->execute(array('id' => $id));
-
-			$row = $query->fetch();
-			
-			if ($row) {
-				$user = new User(array(
-					'id' => $row['id'],
-					'usergroup_id' => $row['usergroup_id'],
-					'username' => $row['username'],
-					'password' => $row['password'],
-					'email' => $row['email'],
-					'show_email' => $row['show_email'],
-					'registered' => $row['registered'],
-					'avatar' => $row['avatar'],
-					'info' => $row['info']
-				));	
-
-				return $user;
-			}
-
-			return null;
-		}
-
 		public static function authenticate($username, $password) {
-			$query = DB::connection()->prepare('SELECT * FROM Member WHERE UPPER(username) = UPPER(:username) AND password = :password LIMIT 1');
-			$query->execute(array('username' => $username, 'password' => $password));
+			$query = DB::connection()->prepare('SELECT * FROM Member WHERE UPPER(username) = UPPER(:username) LIMIT 1');
+			$query->execute(array('username' => $username));
 			$row = $query->fetch();
 
 			if($row){
-				return new User(array(
-					'id' => $row['id'],
-					'usergroup_id' => $row['usergroup_id'],
-					'username' => $row['username'],
-					'password' => $row['password'],
-					'email' => $row['email'],
-					'show_email' => $row['show_email'],
-					'registered' => $row['registered'],
-					'avatar' => $row['avatar'],
-					'info' => $row['info']
-				));	
+				if ($row['password'] === crypt($password, $row['password'])) {				
+					return new User(array(
+						'id' => $row['id'],
+						'usergroup_id' => $row['usergroup_id'],
+						'username' => $row['username'],
+						'password' => $row['password'],
+						'email' => $row['email'],
+						'show_email' => $row['show_email'],
+						'registered' => $row['registered'],
+						'avatar' => $row['avatar'],
+						'info' => $row['info']
+					));	
+				}else {
+					return null;
+				}
 			}else{
 				return null;
 			}
 		}
 
+		public function update() {
+			if (!parent::valid_int($this->usergroup_id)) return null;
+			if (Usergroup::find($this->usergroup_id) === null) return null;
+
+			$query = DB::connection()->prepare('UPDATE Member 
+				SET show_email = :show_email, 
+					email = :email, 
+					info = :description,
+					usergroup_id = :group 
+				WHERE id = :id');
+
+			$query->bindValue(':show_email', $this->show_email, PDO::PARAM_BOOL);
+			$query->bindValue(':email', $this->email, PDO::PARAM_STR);
+			$query->bindValue(':description', $this->info, PDO::PARAM_STR);
+			$query->bindValue(':group', $this->usergroup_id, PDO::PARAM_INT);
+			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+			$query->execute();
+
+			return true;
+		}
+
+		public function update_password() {
+			$query = DB::connection()->prepare('UPDATE Member SET password = :password WHERE id = :id');
+			$query->execute(array('password' => crypt($this->password), 'id' => $this->id));
+		}
+
 		public function save() {
-			$query = DB::connection()->prepare('INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) '.
-				'VALUES (1, :username, :password, :email, true, CURRENT_TIMESTAMP) RETURNING id');
+			$query = DB::connection()->prepare('INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
+				VALUES (1, :username, :password, :email, true, CURRENT_TIMESTAMP) RETURNING id');
 
 			$query->execute(array(
 				'username' => $this->username, 
-				'password' => $this->password, 
+				'password' => crypt($this->password), 
 				'email' => $this->email
 			));
 

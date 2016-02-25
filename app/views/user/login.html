@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="forum-header">
+	<small>
+		<a href="{{base_path}}">Etusivu</a> <
+		<a href="{{base_path}}/login">Kirjaudu sisään</a>
+	</small>
+	
+	<h2>Kirjaudu sisään</h2>
+</div>
+
+{% if error %}
+	<div class="alert alert-danger">
+		{{error}}
+	</div>
+{% endif %}
+
 <div class="login-form">
-	<h1>Kirjaudu sisään</h1>		
-
-	{% if error %}
-		<div class="alert alert-danger">
-			{{error}}
-		</div>
-	{% endif %}
-
 	<form action="{{base_path}}/login" method="post">
 		<div class="form-group">
 			<label>Käyttäjätunnus</label>

@@ -76,12 +76,20 @@
     UserController::logout();
   });
 
-  $routes->get('/profile/', function() {
+  $routes->get('/user/', function() {
     UserController::index();
   });
 
-  $routes->get('/profile/:id', function($id) {
+  $routes->post('/user/savesettings/', function() {
+    UserController::update();
+  });
+
+  $routes->get('/user/:id/', function($id) {
     UserController::show($id);
+  });
+
+  $routes->get('/user/:id/settings/', function($id) {
+    UserController::edit($id);
   });
 
   $routes->get('/users/', function() {
@@ -93,5 +101,5 @@
   });
 
   $routes->get('/settings/', function() {
-    ForumSettingsController::index();
+    SettingsController::index();
   });

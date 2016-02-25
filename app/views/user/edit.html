@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="forum-header">
+    <small>
+        <a href="{{base_path}}">Etusivu</a> <
+        <a href="{{base_path}}/user/{{user.id}}">{{user.username}}</a> <
+        <a href="{{base_path}}/user/{{user.id}}/settings">Käyttäjän asetukset</a>
+    </small>
+    
+    <h2>Käyttäjän {{user.username}} asetukset</h2>
+</div>
+
+{% if errors %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            {{error}}<br />
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-xs-6">
+        <h3>Yleiset asetukset</h3>
+        <form action="{{base_path}}/user/savesettings" method="post">
+            <input type="hidden" name="which_form" value="basic">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+
+            <div class="form-group">
+                <label>Sähköpostiosoite</label>
+                <input type="text" name="email" value="{{user.email}}" class="form-control">
+            </div>
+
+            <div class="checkbox">
+                {% if user.show_email %}
+                    <label><input type="checkbox" name="show_email" checked>Näytä sähköpostiosoite profiilissa</label>
+                {% else %}
+                    <label><input type="checkbox" name="show_email">Näytä sähköpostiosoite profiilissa</label>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Kuvaus itsestäsi (max 400 merkkiä)</label>
+                <textarea name="description" class="form-control" rows="4">{{user.info}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Tallenna tiedot</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-6">
+        <h3>Vaihda salasana</h3>
+        <form action="{{base_path}}/user/savesettings" method="post">
+            <input type="hidden" name="which_form" value="password">
+            <input type="hidden" name="user_id" value="{{user.id}}">
+
+            <div class="form-group">
+                <label>Salasana</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Salasana uudestaan</label>
+                <input type="password" name="password_confirmation" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Vaihda salasana</button>
+            </div>
+        </form>
+    </div>
+    {% if permissions.usermanagement %}
+        <div class="row">
+            <div class="col-xs-6">
+                <h3>Käyttäjäryhmä</h3>
+                <form action="{{base_path}}/user/savesettings" method="post">
+                    <input type="hidden" name="which_form" value="usergroup">
+                    <input type="hidden" name="user_id" value="{{user.id}}">
+
+                    <div class="form-group">
+                        <label>Valitse käyttäjäryhmä</label>
+                        <select name="usergroup" class="form-control">
+                            {% for group in groups %}
+                                {% if group.id == user.usergroup_id %}
+                                    <option value="{{group.id}}" selected>{{group.name}}</option>
+                                {% else %}
+                                    <option value="{{group.id}}">{{group.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Aseta käyttäjäryhmä</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

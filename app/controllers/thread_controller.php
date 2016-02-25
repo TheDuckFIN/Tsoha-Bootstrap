@@ -9,7 +9,7 @@
 			}
 
 			$board = Board::find($thread->board_id);
-			$messages = Message::all_by_thread_id($id);
+			$messages = Message::all($id);
 			$users = User::all();
 			$groups = Usergroup::all();
 

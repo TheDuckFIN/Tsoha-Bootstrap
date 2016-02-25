@@ -24,7 +24,7 @@
         <tbody>
             {% for user in users %}
                 <tr>
-                    <td><a href="{{base_path}}/profile/{{user.id}}">{{user.username}}</a></td>
+                    <td><a href="{{base_path}}/user/{{user.id}}">{{user.username}}</a></td>
                     <td>{{user.postcount()}}</td>
                     <td><span style="color: {{group[user.usergroup_id].color}}">{{group[user.usergroup_id].name}}</span></td>
                     <td>{{user.registered}}</td>

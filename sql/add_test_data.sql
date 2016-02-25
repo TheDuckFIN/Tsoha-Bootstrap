@@ -12,11 +12,11 @@ INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_messag
 	VALUES (3, true, true, true, true, true, true, true, true, true);
 
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (3, 'vlakanie', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (3, 'vlakanie', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (1, 'jorma', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (1, 'jorma', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (2, 'modemies', 'salasana', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (2, 'modemies', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 
 INSERT INTO Category (name) VALUES ('Yleinen');
 

@@ -87,8 +87,15 @@
 		public static function find_all_by_board($board_id) {
 			if (!parent::valid_int($board_id)) return null;
 
-			$query = DB::connection()->prepare('SELECT t.id, t.board_id, t.starter_id, t.title, t.locked FROM Thread t INNER JOIN Message m ON m.id = (SELECT msg.id FROM Message msg WHERE msg.thread_id = t.id ORDER BY msg.time 
-                 DESC LIMIT 1) WHERE t.board_id = :id ORDER BY m.time DESC');
+			$query = DB::connection()->prepare('SELECT t.id, t.board_id, t.starter_id, t.title, t.locked 
+				FROM Thread t 
+				INNER JOIN Message m ON m.id = (SELECT msg.id 
+					FROM Message msg 
+					WHERE msg.thread_id = t.id 
+					ORDER BY msg.time DESC LIMIT 1) 
+				WHERE t.board_id = :id 
+				ORDER BY m.time DESC');
+			
 			$query->execute(array('id' => $board_id));
 
 			$rows = $query->fetchAll();
