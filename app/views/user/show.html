@@ -30,6 +30,10 @@
 				<td><span style="color: {{group.color}};">{{group.name}}</span></td>
 			</tr>
 			<tr>
+				<td><b>Viestimäärä:</b></td>
+				<td>{{user.postcount()}}</td>
+			</tr>
+			<tr>
 				<td><b>Sähköposti:</b></td>
 				<td>
 					{% if user.show_email %}

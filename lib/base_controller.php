@@ -20,6 +20,10 @@
       }
     }
 
+    public static function throw_error($msg) {
+      Redirect::to('/', array('message' => $msg, 'style' => 'danger'));
+    }
+
     public static function has_permission($name) {
       $user = self::get_user_logged_in();
 
@@ -49,6 +53,22 @@
         'settingsmanagement' => self::has_permission('settingsmanagement'),
         'usermanagement' => self::has_permission('usermanagement')
       );
+    }
+
+    public static function bbcodeify($text) {
+      $text = mb_convert_encoding($text, 'UTF-8', 'UTF-8');
+      $text = htmlentities($text, ENT_QUOTES, 'UTF-8');
+
+      $text = nl2br($text);
+
+      $text = str_replace('[b]', '<b>', $text);
+      $text = str_replace('[/b]', '</b>', $text);
+      $text = str_replace('[i]', '<em>', $text);
+      $text = str_replace('[/i]', '</em>', $text);
+      $text = str_replace('[u]', '<u>', $text);
+      $text = str_replace('[/u]', '</u>', $text);
+
+      return $text;
     }
 
   }

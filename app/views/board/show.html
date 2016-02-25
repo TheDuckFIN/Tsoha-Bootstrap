@@ -40,14 +40,14 @@
 				{% for thread in threads %}
 					<tr>
 						<td>
-							<a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a>
 							{% if thread.locked %}
-								&nbsp;<b>LUKITTU</b>
+								<b>[LUKITTU]</b>
 							{% endif %}
+							<a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a>
 							<br />
-							<small><a href="{{base_path}}/profile/{{starter[thread.id].id}}">{{starter[thread.id].username}}</a></small>
+							<small><a href="{{base_path}}/profile/{{user[thread.starter_id].id}}">{{user[thread.starter_id].username}}</a></small>
 						</td>
-						<td>{{postcount[thread.id]}}</td>
+						<td>{{thread.postcount()}}</td>
 						<td>
 							{{lastmsg[thread.id]['msg'].time}}<br />
 							<a href="{{base_path}}/profile/{{lastmsg[thread.id]['user'].id}}">{{lastmsg[thread.id]['user'].username}}</a>

@@ -14,7 +14,8 @@
     <table class="table table-striped-custom table-bordered-custom">
         <thead>
             <tr class="header">
-                <th class="col-xs-6">Käyttäjä</th>
+                <th class="col-xs-5">Käyttäjä</th>
+                <th class="col-xs-1">Viestejä</th>
                 <th class="col-xs-3">Käyttäjäryhmä</th>
                 <th class="col-xs-3">Rekisteröitynyt</th>
             </tr>
@@ -23,9 +24,10 @@
         <tbody>
             {% for user in users %}
                 <tr>
-                    <td class="col-xs-6"><a href="{{base_path}}/profile/{{user.id}}">{{user.username}}</a></td>
-                    <td class="col-xs-3"><span style="color: {{group[user.usergroup_id].color}}">{{group[user.usergroup_id].name}}</span></td>
-                    <td class="col-xs-3">{{user.registered}}</td>
+                    <td><a href="{{base_path}}/profile/{{user.id}}">{{user.username}}</a></td>
+                    <td>{{user.postcount()}}</td>
+                    <td><span style="color: {{group[user.usergroup_id].color}}">{{group[user.usergroup_id].name}}</span></td>
+                    <td>{{user.registered}}</td>
                 </tr>
             {% endfor %}
         </tbody>

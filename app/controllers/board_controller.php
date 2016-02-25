@@ -22,32 +22,21 @@
 			$board = Board::find($id);
 
 			if (!$board) {
-				Redirect::to('/', array('message' => 'Keskustelualueen ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Keskustelualueen ID virheellinen!');
 			}
 
 			$threads = Thread::find_all_by_board($id);
-			$starter = array();
-			$postcount = array();
+			$users = User::all();
 			$lastmsg = array();
 
 			foreach ($threads as $thread) {
-				$starter[$thread->id] = User::find($thread->starter_id);
-				$postcount[$thread->id] = Thread::postcount($thread->id);
 				$lastmsg[$thread->id] = Message::last_message_by_thread_id($thread->id);
-			}
-
-			if ($threads == NULL) {
-				$empty = true;
-			}else {
-				$empty = false;
 			}
 
 			View::make('board/show.html', array(
 				'board' => $board, 
 				'threads' => $threads, 
-				'empty' => $empty, 
-				'postcount' => $postcount,
-				'starter' => $starter,
+				'user' => $users,
 				'lastmsg' => $lastmsg
 			));
 		}

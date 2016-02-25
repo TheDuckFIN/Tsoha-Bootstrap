@@ -2,17 +2,13 @@
 	
 	class PostController extends BaseController {
 
-		public static function index() {
-			View::make('post/index.html');
-		}
-
 		public static function create($id) {
 			parent::check_logged_in();
 
 			$thread = Thread::find($id);
 
 			if (!$thread) {
-				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Keskustelun ID virheellinen!');
 			}
 
 			$board = Board::find($thread->board_id);
@@ -29,7 +25,7 @@
 			$params = $_POST;
 
 			if (!Thread::find($params['thread'])) {
-				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Keskustelun ID virheellinen!');
 			}
 
 			$message = new Message(array(
@@ -64,7 +60,7 @@
 			$message = Message::find($id);
 
 			if (!$message) {
-				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Viestin ID virheellinen!');
 			}
 
 			$thread = Thread::find($message->thread_id);
@@ -77,7 +73,7 @@
 					'message' => $message
 				));
 			}else {
-				Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
+				parent::throw_error('Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(');
 			}
 		}
 
@@ -89,7 +85,7 @@
 			$message = Message::find($params['msg_id']);
 
 			if (!$message) {
-				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Viestin ID virheellinen!');
 			}
 
 			$message->message = $params['message'];
@@ -113,7 +109,7 @@
 					));
 				}
 			}else {
-				Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
+				parent::throw_error('Sinulla ei ole oikeuksia muokata tätä viestiä! Älä yritä huijata :(');
 			}
 		}
 
@@ -123,15 +119,15 @@
 			$message = Message::find($id);
 
 			if ($message == NULL) {
-				Redirect::to('/', array('message' => 'Viestin ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Viestin ID virheellinen!');
 			}elseif ($message->firstpost) {
-				Redirect::to('/', array('message' => 'Et voi poistaa keskstelun ensimmäistä viestiä! Älä yritä huijata :(', 'style' => 'danger'));
+				parent::throw_error('Et voi poistaa keskstelun ensimmäistä viestiä! Älä yritä huijata :(');
 			}else {
 				if (parent::has_permission('delete_message')) {
 					$message->delete();
 					Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti poistettu onnistuneesti!'));
 				}else {
-					Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia poistaa viestejä! Älä yritä huijata :(', 'style' => 'danger'));
+					parent::throw_error('Sinulla ei ole oikeuksia poistaa viestejä! Älä yritä huijata :(');
 				}
 			}
 		}

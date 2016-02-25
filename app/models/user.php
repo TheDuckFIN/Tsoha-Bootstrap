@@ -49,7 +49,7 @@
 			$users = array();
 
 			foreach ($rows as $row) {
-				$users[] = new User(array(
+				$users[$row['id']] = new User(array(
 					'id' => $row['id'],
 					'usergroup_id' => $row['usergroup_id'],
 					'username' => $row['username'],
@@ -63,6 +63,19 @@
 			}
 
 			return $users;
+		}
+
+		public function postcount() {
+			$query = DB::connection()->prepare('SELECT COUNT(*) AS posts FROM Message WHERE sender_id = :id');
+			$query->execute(array('id' => $this->id));
+
+			$result = $query->fetch();
+
+			if ($result) {
+				return $result['posts'];
+			}else {
+				return null;
+			}
 		}
 
 		public static function find($id) {

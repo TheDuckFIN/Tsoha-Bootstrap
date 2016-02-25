@@ -29,7 +29,16 @@
 	{% if permissions.delete_thread %}
 		{{forms.destroy_button("#{base_path}/thread/delete/#{thread.id}", "Poista keskustelu")}}
 	{% endif %}
-</div>
+	{% if permissions.lock_thread %}
+	    <form method="post" action="{{base_path}}/thread/toggle_locked/{{thread.id}}" style="display: inline-block">
+			{% if thread.locked %}
+				<button type="submit" class="btn btn-success">Avaa keskustelu</button>
+			{% else %}
+				<button type="submit" class="btn btn-danger">Lukitse keskustelu</button>
+			{% endif %}
+	    </form>
+	{% endif %}
+</div>	
 
 <div class="post-content">
 	{% for msg in messages %}
@@ -55,12 +64,13 @@
 
 			<div class="row undo-margins flex-row">
 				<div class="single-post-avatar col-xs-2">
-					<span class="post-username"><a href="{{base_path}}/profile/{{user[msg.id].id}}">{{user[msg.id].username}}</a></span><br>
-					<span style="color: {{group[user[msg.id].usergroup_id].color}};">{{group[user[msg.id].usergroup_id].name}}</span><br /><br />
-					<img src="{{base_path}}/assets/img/default_avatar.png"></img>
+					<span class="post-username"><a href="{{base_path}}/profile/{{user[msg.sender_id].id}}">{{user[msg.sender_id].username}}</a></span><br>
+					<span style="color: {{group[user[msg.sender_id].usergroup_id].color}}; font-size: 12px;"><b>{{group[user[msg.sender_id].usergroup_id].name}}</b></span><br /><br />
+					<img src="{{base_path}}/assets/img/default_avatar.png"></img><br /><br />
+					<b>Viestejä:</b> {{user[msg.sender_id].postcount()}}
 				</div>
 				<div class="single-post-content col-xs-10">
-					{{msg.message}}
+					{{msg.message | raw}}
 				</div>
 			</div>
 		</div>

@@ -12,14 +12,6 @@
     BoardController::show($id);
   });
 
-  $routes->get('/thread/', function() {
-    ThreadController::index();  
-  });
-
-  $routes->get('/thread/new/', function() {
-    ThreadController::index();
-  });
-
   $routes->get('/thread/new/:id', function($id) {
     ThreadController::create($id);
   });
@@ -32,16 +24,12 @@
     ThreadController::delete($id);
   });
 
+  $routes->post('/thread/toggle_locked/:id', function($id) {
+    ThreadController::toggle_locked($id);
+  });
+
   $routes->get('/thread/:id', function($id) {
     ThreadController::show($id);  
-  });
-
-  $routes->get('/post/', function() {
-    PostController::index();
-  });
-
-  $routes->get('/post/edit/', function() {
-    PostController::index();
   });
 
   $routes->post('/post/edit/', function() {
@@ -76,11 +64,11 @@
     UserController::handle_login();
   });
 
-  $routes->get('/register', function() {
+  $routes->get('/register/', function() {
     UserController::register();
   });
 
-  $routes->post('/register', function() {
+  $routes->post('/register/', function() {
     UserController::handle_register();
   });
 

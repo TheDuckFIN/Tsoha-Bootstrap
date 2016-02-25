@@ -71,15 +71,17 @@
 			return null;
 		}
 
-		public static function postcount($thread_id) {
-			if (!parent::valid_int($thread_id)) return null;
-
+		public function postcount() {
 			$query = DB::connection()->prepare('SELECT COUNT(*) FROM Message WHERE thread_id = :id');
-			$query->execute(array('id' => $thread_id));
+			$query->execute(array('id' => $this->id));
 
 			$result = $query->fetch();
 
-			return $result['count'];
+			if ($result) {
+				return $result['count'];
+			}else {
+				return null;
+			}
 		}
 
 		public static function find_all_by_board($board_id) {
@@ -103,6 +105,16 @@
 			}
 
 			return $threads;
+		}
+
+		public function update() {
+			$query = DB::connection()->prepare('UPDATE Thread SET title = :title, locked = :locked WHERE id = :id');
+
+			$query->bindValue(':title', $this->title, PDO::PARAM_STR);
+			$query->bindValue(':locked', $this->locked, PDO::PARAM_BOOL);
+			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+			$query->execute();
 		}
 
 		public function save() {

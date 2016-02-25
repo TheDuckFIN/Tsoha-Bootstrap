@@ -2,23 +2,19 @@
 	
 	class ThreadController extends BaseController {
 
-		public static function index() {
-			Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
-		}
-
 		public static function show($id) {
-			$thread = Thread::find((int)$id);
+			$thread = Thread::find($id);
 			if (!$thread) {
-				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Keskustelun ID virheellinen!');
 			}
 
 			$board = Board::find($thread->board_id);
 			$messages = Message::all_by_thread_id($id);
-			$users = array();
+			$users = User::all();
 			$groups = Usergroup::all();
 
 			foreach ($messages as $msg) {
-				$users[$msg->id] = User::find($msg->sender_id);
+				$msg->message = parent::bbcodeify($msg->message);
 			}
 
 			View::make('thread/show.html', array(
@@ -30,10 +26,29 @@
 			));
 		}
 
+		public static function toggle_locked($id) {
+			$thread = Thread::find($id);
+
+			if (!$thread) {
+				parent::throw_error('Keskustelun ID virheellinen!');
+			}elseif (!parent::has_permission('lock_thread')) {
+				parent::throw_error('Sinulla ei ole oikeuksia lukita Keskusteluja! Älä yritä huijata :(');
+			}else {
+				if ($thread->locked) {
+					$msg = "Keskustelun lukitus poistettu onnistuneesti!";
+				}else {
+					$msg = "Keskustelu lukittu onnistuneesti!";
+				}
+				$thread->locked = !$thread->locked;
+				$thread->update();
+				Redirect::to('/thread/' . $thread->id, array('alert_msg' => $msg));
+			}
+		}
+
 		public static function create($id) {
 			parent::check_logged_in();
 
-			$board = Board::find((int)$id);
+			$board = Board::find($id);
 			if (!$board) {
 				Redirect::to('/thread/');
 			}else {
@@ -46,8 +61,8 @@
 
 			$params = $_POST;
 
-			if (!Board::find((int)$params['board_id'])) {
-				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+			if (!Board::find($params['board_id'])) {
+				parent::throw_error('Keskustelun ID virheellinen!');
 			}
 
 			$thread = new Thread(array(
@@ -102,13 +117,13 @@
 			$thread = Thread::find($id);
 
 			if ($thread == NULL) {
-				Redirect::to('/', array('message' => 'Keskustelun ID virheellinen!', 'style' => 'danger'));
+				parent::throw_error('Keskustelun ID virheellinen!');
 			}else {
 				if (parent::has_permission('delete_thread')) {
 					$thread->delete();
 					Redirect::to('/board/' . $thread->board_id, array('alert_msg' => 'Keskustelu poistettu onnistuneesti!'));
 				}else {
-					Redirect::to('/', array('message' => 'Sinulla ei ole oikeuksia poistaa Keskusteluja! Älä yritä huijata :(', 'style' => 'danger'));
+					parent::throw_error('Sinulla ei ole oikeuksia poistaa Keskusteluja! Älä yritä huijata :(');
 				}
 			}
 		}
