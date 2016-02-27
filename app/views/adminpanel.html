@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="forum-header">
+    <small>
+        <a href="{{base_path}}">Etusivu</a> <
+        <a href="{{base_path}}/settings">Hallintapaneeli</a>
+    </small>
+    
+    <h2>Hallintapaneeli</h2>
+
+    {% if message %}
+        <div class="alert alert-{{style}}">
+            {{message}}
+        </div>
+    {% endif %}
+</div>
+
+
+<div class="row">
+    <div class="col-xs-2">
+        <h4>Asetukset</h4>
+        <a href="{{base_path}}/settings">Yleinen</a><br>
+        <a href="{{base_path}}/settings/usergroups">Käyttäjäryhmät</a><br>
+        <a href="{{base_path}}/settings/users">Käyttäjät</a><br>
+        <a href="{{base_path}}/settings/categories">Kategoriat</a><br>
+        <a href="{{base_path}}/settings/boards">Keskustelualueet</a>
+    </div>
+    <div class="col-xs-10">
+        {% block admin_content %}{% endblock %}
+    </div>
+</div>
+
+{% endblock %}
