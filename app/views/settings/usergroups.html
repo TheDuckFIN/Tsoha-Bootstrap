@@ -1,0 +1,43 @@
+{% extends "adminpanel.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% block admin_nav %}
+    < <a href="{{base_path}}/settings/usergroups">Käyttäjäryhmät</a>
+{% endblock %}
+
+{% block admin_content %}
+
+<h3>Käyttäjäryhmien hallinta</h3>
+
+<a href="{{base_path}}/settings/usergroups/new" class="btn btn-success">Luo uusi käyttäjäryhmä</a>
+
+<div class="list">
+    <table class="table table-striped-custom table-bordered-custom">
+        <thead>
+            <tr class="header">
+                <th class="col-xs-6">Käyttäjäryhmä</th>
+                <th class="col-xs-1">Jäseniä</th>
+                <th class="col-xs-2">Toiminnot</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td><span style="color: {{group.color}}">{{group.name}}</span></td>
+                    <td>{{group.members_count()}}</td>
+                    <td>
+                        {% if group.locked %}
+                            Ei toimintoja
+                        {% else %}
+                            <a href="{{base_path}}/settings/usergroups/edit/{{group.id}}" class="btn btn-primary btn-xs">Muokkaa</a>
+                            {{forms.destroy_button("#{base_path}/usergroups/delete/#{group.id}", "Poista ryhmä", "btn-xs")}}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+</div>
+
+{% endblock %}

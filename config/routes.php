@@ -80,6 +80,10 @@
     UserController::index();
   });
 
+  $routes->post('/user/delete/:id', function($id) {
+    UserController::delete($id);
+  });
+
   $routes->post('/user/savesettings/', function() {
     UserController::update();
   });
@@ -100,6 +104,34 @@
     UsergroupController::index();
   });
 
+  $routes->get('/usergroups/delete/:id', function($id) {
+    UsergroupController::delete($id);
+  });
+
   $routes->get('/settings/', function() {
     SettingsController::index();
+  });
+
+  $routes->get('/settings/usergroups/', function() {
+    SettingsController::usergroups_index();
+  });
+
+  $routes->get('/settings/usergroups/new/', function() {
+    UsergroupController::create();
+  });
+
+  $routes->post('/settings/usergroups/new/', function() {
+    UsergroupController::save();
+  });
+
+  $routes->get('/settings/users/', function() {
+    SettingsController::users_index();
+  });
+
+  $routes->get('/settings/categories/', function() {
+    SettingsController::categories_index();
+  });
+
+  $routes->get('/settings/boards/', function() {
+    SettingsController::boards_index();
   });

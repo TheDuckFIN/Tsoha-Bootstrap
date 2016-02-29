@@ -37,6 +37,31 @@
 			}
 		}
 
+		public static function delete($id) {
+            parent::check_logged_in();
+
+            if (parent::has_permission('usermanagement')) {
+    			$user = User::find($id);
+
+				if (!$user) {
+					parent::throw_error('Käyttäjän ID virheellinen!');
+				}else {
+					$logged_in_id = parent::get_user_logged_in()->id;
+
+					$user->delete();
+
+					if ($user->id == $logged_in_id) {
+						$_SESSION['user'] = null;
+	                    Redirect::to('/', array('message' => 'Poistit itsesi onnistuneesti ja samalla kirjauduit ulos! :)', 'style' => 'success'));
+					}
+
+                    Redirect::to('/settings/users/', array('message' => 'Käyttäjä poistettu onnistuneesti!', 'style' => 'success'));
+				}
+            }else {
+                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+            }
+		}
+
 		public static function update() {
 			parent::check_logged_in();
 
@@ -52,7 +77,7 @@
 						$valid = User::validate(null, null, null, $params['email'], $params['description']);
 
 						if (!is_array($valid)) {
-							$user->info = $params['description'];
+							$user->description = $params['description'];
 							$user->email = $params['email'];
 							if (isset($params['show_email'])) {
 								$user->show_email = true;

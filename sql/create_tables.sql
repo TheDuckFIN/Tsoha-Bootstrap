@@ -14,7 +14,7 @@ CREATE TABLE Member (
 	show_email boolean NOT NULL DEFAULT TRUE,
 	registered timestamp NOT NULL,
 	avatar varchar(200),
-	info varchar(400)
+	description varchar(400)
 );
 
 CREATE TABLE Permission (

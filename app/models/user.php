@@ -2,7 +2,7 @@
 	
 	class User extends BaseModel {
 
-		public $id, $usergroup_id, $username, $password, $email, $show_email, $avatar, $info, $registered;
+		public $id, $usergroup_id, $username, $password, $email, $show_email, $avatar, $description, $registered;
 
 		public function __construct($attributes) {
 			parent::__construct($attributes);
@@ -21,6 +21,7 @@
 				$v->rule('required', 'Käyttäjätunnus');
 				$v->rule('lengthMin', 'Käyttäjätunnus', 3);
 				$v->rule('lengthMax', 'Käyttäjätunnus', 20);
+				$v->rule('regex', 'Käyttäjätunnus', '/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._ÄäÅåÖö]+(?<![_.])$/');
 			} 
 
 			if (isset($password)) {
@@ -74,7 +75,7 @@
 					'show_email' => $row['show_email'],
 					'registered' => date_format($time, "d.m.Y H:i:s"),
 					'avatar' => $row['avatar'],
-					'info' => $row['info']
+					'description' => $row['description']
 				));	
 
 				return $user;
@@ -102,7 +103,7 @@
 					'show_email' => $row['show_email'],
 					'registered' => date_format($time, "d.m.Y H:i:s"),
 					'avatar' => $row['avatar'],
-					'info' => $row['info']
+					'description' => $row['description']
 				));	
 			}
 
@@ -138,7 +139,7 @@
 						'show_email' => $row['show_email'],
 						'registered' => $row['registered'],
 						'avatar' => $row['avatar'],
-						'info' => $row['info']
+						'description' => $row['description']
 					));	
 				}else {
 					return null;
@@ -155,13 +156,13 @@
 			$query = DB::connection()->prepare('UPDATE Member 
 				SET show_email = :show_email, 
 					email = :email, 
-					info = :description,
+					description = :description,
 					usergroup_id = :group 
 				WHERE id = :id');
 
 			$query->bindValue(':show_email', $this->show_email, PDO::PARAM_BOOL);
 			$query->bindValue(':email', $this->email, PDO::PARAM_STR);
-			$query->bindValue(':description', $this->info, PDO::PARAM_STR);
+			$query->bindValue(':description', $this->description, PDO::PARAM_STR);
 			$query->bindValue(':group', $this->usergroup_id, PDO::PARAM_INT);
 			$query->bindValue(':id', $this->id, PDO::PARAM_INT);
 
@@ -188,6 +189,23 @@
 			$row = $query->fetch();
 
 			return $row['id'];
+		}
+
+		public function delete() {
+			$query = DB::connection()->prepare('UPDATE Thread SET starter_id = null WHERE starter_id = :id');
+			$query->execute(array('id' => $this->id));
+
+			$query = DB::connection()->prepare('UPDATE Message SET sender_id = null WHERE sender_id = :id');
+			$query->execute(array('id' => $this->id));
+
+			$query = DB::connection()->prepare('UPDATE Edit SET editor_id = null WHERE editor_id = :id');
+			$query->execute(array('id' => $this->id));
+
+			$query = DB::connection()->prepare('DELETE FROM Member_achievement WHERE member_id = :id');
+			$query->execute(array('id' => $this->id));
+
+			$query = DB::connection()->prepare('DELETE FROM Member WHERE id = :id');
+			$query->execute(array('id' => $this->id));
 		}
 
 		public static function username_exists($username) {

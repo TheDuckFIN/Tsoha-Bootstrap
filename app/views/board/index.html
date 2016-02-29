@@ -40,7 +40,11 @@
 									<small>
 										<b><a href="{{base_path}}/thread/{{lastmsg[board.id]['thread'].id}}">{{lastmsg[board.id]['thread'].title}}</a></b><br />
 										{{lastmsg[board.id]['msg'].time}}<br />
-										<a href="{{base_path}}/user/{{lastmsg[board.id]['user'].id}}">{{lastmsg[board.id]['user'].username}}</a>
+										{% if lastmsg[board.id]['user'] %}
+											<a href="{{base_path}}/user/{{lastmsg[board.id]['user'].id}}">{{lastmsg[board.id]['user'].username}}</a>
+										{% else %}
+											[Poistettu käyttäjä]
+										{% endif %}
 									</small>
 								{% endif %}
 							</td>

@@ -1,0 +1,37 @@
+{% extends "adminpanel.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% block admin_nav %}
+    < <a href="{{base_path}}/settings/users">Käyttäjät</a>
+{% endblock %}
+
+{% block admin_content %}
+
+<h3>Käyttäjien hallinta</h3>
+
+<div class="list">  
+    <table class="table table-striped-custom table-bordered-custom">
+        <thead>
+            <tr class="header">
+                <th class="col-xs-5">Käyttäjä</th>
+                <th class="col-xs-3">Käyttäjäryhmä</th>
+                <th class="col-xs-3">Toiminnot</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{base_path}}/user/{{user.id}}">{{user.username}}</a></td>
+                    <td><span style="color: {{group[user.usergroup_id].color}}">{{group[user.usergroup_id].name}}</span></td>
+                    <td>
+                        <a href="{{base_path}}/user/{{user.id}}/settings" class="btn btn-primary btn-xs">Muokkaa asetuksia</a>
+                        {{forms.destroy_button("#{base_path}/user/delete/#{user.id}", "Poista käyttäjä", "btn-xs")}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

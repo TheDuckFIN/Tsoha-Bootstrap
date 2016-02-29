@@ -64,10 +64,15 @@
 
 			<div class="row undo-margins flex-row">
 				<div class="single-post-avatar col-xs-2">
-					<span class="post-username"><a href="{{base_path}}/user/{{user[msg.sender_id].id}}">{{user[msg.sender_id].username}}</a></span><br>
-					<span style="color: {{group[user[msg.sender_id].usergroup_id].color}}; font-size: 12px;"><b>{{group[user[msg.sender_id].usergroup_id].name}}</b></span><br /><br />
-					<img src="{{base_path}}/assets/img/default_avatar.png"></img><br /><br />
-					<b>Viestejä:</b> {{user[msg.sender_id].postcount()}}
+					{% if user[msg.sender_id] %}
+						<span class="post-username"><a href="{{base_path}}/user/{{user[msg.sender_id].id}}">{{user[msg.sender_id].username}}</a></span><br>
+						<span style="color: {{group[user[msg.sender_id].usergroup_id].color}}; font-size: 12px;"><b>{{group[user[msg.sender_id].usergroup_id].name}}</b></span><br /><br />
+						<img src="{{base_path}}/assets/img/default_avatar.png"></img><br /><br />
+						<b>Viestejä:</b> {{user[msg.sender_id].postcount()}}
+					{% else %}
+						[Poistettu käyttäjä]<br><br>
+						<img src="{{base_path}}/assets/img/default_avatar.png">
+					{% endif %}
 				</div>
 				<div class="single-post-content col-xs-10">
 					{{msg.message | raw}}

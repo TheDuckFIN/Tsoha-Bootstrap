@@ -59,4 +59,26 @@
             return null;
         }
 
+        public function save() {
+            $query = DB::connection()->prepare('INSERT INTO Permission 
+                    (usergroup_id, delete_thread, delete_message, 
+                    edit_message, lock_thread, ban, boardmanagement, 
+                    usergroupmanagement, settingsmanagement, usermanagement) 
+                VALUES
+                    (:groupid, :delth, :delm, :edm, :lt, :ban, :bman, :ugman, :setman, :uman)');
+
+            $query->bindValue(':groupid', $this->usergroup_id, PDO::PARAM_INT);
+            $query->bindValue(':delth', $this->delete_thread, PDO::PARAM_BOOL);
+            $query->bindValue(':delm', $this->delete_message, PDO::PARAM_BOOL);
+            $query->bindValue(':edm', $this->edit_message, PDO::PARAM_BOOL);
+            $query->bindValue(':lt', $this->lock_thread, PDO::PARAM_BOOL);
+            $query->bindValue(':ban', $this->ban, PDO::PARAM_BOOL);
+            $query->bindValue(':bman', $this->boardmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':ugman', $this->usergroupmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':setman', $this->settingsmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':uman', $this->usermanagement, PDO::PARAM_BOOL);
+
+            $query->execute();
+        }
+
     }

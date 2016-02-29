@@ -17,6 +17,14 @@ INSERT INTO Member (usergroup_id, username, password, email, show_email, registe
 	VALUES  (1, 'jorma', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
 	VALUES  (2, 'modemies', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
+    VALUES  (1, 'matti', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
+    VALUES  (1, 'testi1', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
+    VALUES  (1, 'testi2', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
+    VALUES  (1, 'käyttäjä', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 
 INSERT INTO Category (name) VALUES ('Yleinen');
 

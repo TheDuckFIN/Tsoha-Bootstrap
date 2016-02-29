@@ -9,6 +9,10 @@ body {
   margin-bottom: 128px;
 }
 
+.list {
+    margin-top: 8px;
+}
+
 .profile_header {
     margin-top: 12px;
 }
@@ -64,8 +68,8 @@ body {
 	padding-top: 8px;
 }
 
-.login-form {
-	width: 50%;
+.login-form input {
+    width: 50%;
 }
 
 .forum-header {
