@@ -126,11 +126,11 @@
             $move_users = DB::connection()->prepare('UPDATE Member SET usergroup_id = 1 WHERE usergroup_id = :id');
             $move_users->execute(array('id' => $this->id));
 
-            $delete_group = DB::connection()->prepare('DELETE FROM Usergroup WHERE id = :id');
-            $delete_group->execute(array('id' => $this->id));
-
             $delete_permissions = DB::connection()->prepare('DELETE FROM Permission WHERE usergroup_id = :id');
             $delete_permissions->execute(array('id' => $this->id));
+            
+            $delete_group = DB::connection()->prepare('DELETE FROM Usergroup WHERE id = :id');
+            $delete_group->execute(array('id' => $this->id));
         }
 
     }

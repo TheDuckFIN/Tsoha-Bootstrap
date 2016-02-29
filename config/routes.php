@@ -104,12 +104,16 @@
     UsergroupController::index();
   });
 
-  $routes->get('/usergroups/delete/:id', function($id) {
+  $routes->post('/usergroups/delete/:id', function($id) {
     UsergroupController::delete($id);
   });
 
   $routes->get('/settings/', function() {
     SettingsController::index();
+  });
+
+  $routes->post('/settings/save', function() {
+    SettingsController::update();
   });
 
   $routes->get('/settings/usergroups/', function() {
@@ -124,14 +128,18 @@
     UsergroupController::save();
   });
 
+  $routes->get('/settings/usergroups/edit/:id', function($id) {
+    UsergroupController::edit($id);
+  });
+
+  $routes->post('/settings/usergroups/edit/', function() {
+    UsergroupController::update();
+  });
+
   $routes->get('/settings/users/', function() {
     SettingsController::users_index();
   });
 
-  $routes->get('/settings/categories/', function() {
-    SettingsController::categories_index();
-  });
-
-  $routes->get('/settings/boards/', function() {
-    SettingsController::boards_index();
+  $routes->get('/settings/board/', function() {
+    SettingsController::board_index();
   });

@@ -8,9 +8,17 @@
 
 <h3>Yleiset asetukset</h3>
 
+{% if errors %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            {{error}}<br />
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="row">
     <div class="col-xs-6">
-        <form action="{{base_path}}/settings" method="post">
+        <form action="{{base_path}}/settings/save" method="post">
             <div class="form-group">
                 <label>Keskustelupalstan otsikko</label>
                 <input type="text" name="name" value="{{settings.name}}" class="form-control">

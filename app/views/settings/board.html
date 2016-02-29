@@ -1,0 +1,40 @@
+{% extends "adminpanel.html" %}
+{% import "macros/forms.html" as forms %}
+
+{% block admin_nav %}
+    < <a href="{{base_path}}/settings/board">Kategoriat ja keskustelualueet</a>
+{% endblock %}
+
+{% block admin_content %}
+
+<h3>Kategorioiden ja keskustelualueiden hallinta</h3>
+
+<a href="{{base_path}}/settings/board/new/category" class="btn btn-success">Uusi kategoria</a>
+
+<div class="list">  
+    {% for category in categories %}
+        <table class="table table-striped-custom table-bordered-custom">
+            <thead>
+                <tr class="header">
+                    <th class="col-xs-9">{{category.name}}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for board in boards %}
+                    {% if board.category_id == category.id %}
+                        <tr>
+                            <td>
+                                <a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a><br />
+                                <small>{{board.description}}</small>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

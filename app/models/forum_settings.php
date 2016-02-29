@@ -20,6 +20,29 @@
             ));
         }
 
+        public function validate() {
+            $v = new Valitron\Validator(array(
+                'palstan otsikko' => $this->name,
+                'viestin pituus' => $this->msg_size
+            ));
+
+            $v->rule('required', 'palstan otsikko');
+            $v->rule('lengthMax', 'palstan otsikko', 50);
+            $v->rule('required', 'viestin pituus');
+            $v->rule('numeric', 'viestin pituus');
+            $v->rule('min', 'viestin pituus', 1);
+
+            $v->validate();
+
+            $current_errors = parent::format_errors($v->errors());
+
+            if (empty($current_errors)) {
+                return true;
+            }else {
+                return $current_errors;
+            }
+        }
+
         public static function get($field) {
             $query = DB::connection()->prepare('SELECT * FROM Forum_settings WHERE id = 1');
             $query->execute();

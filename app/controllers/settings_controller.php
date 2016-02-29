@@ -11,6 +11,30 @@
                 View::make("settings/general.html", array('settings' => $settings)); 
             }else {
                 self::no_access("Yleiset asetukset");
+            }            
+        }
+
+        public static function update() {
+            parent::check_logged_in();
+
+            if (parent::has_permission('settingsmanagement')) {
+                $params = $_POST;
+
+                $settings = ForumSettings::all();
+
+                $settings->name = $params['name'];
+                $settings->msg_size = $params['msg_size'];
+
+                $valid = $settings->validate();
+
+                if ($valid === true) {
+                    $settings->update();
+                    Redirect::to('/settings/', array('message' => 'Asetukset tallennettu onnistuneesti!', 'style' => 'success'));
+                }else {
+                    Redirect::to('/settings/', array('errors' => $valid));
+                }
+            }else {
+                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
             }
         }
 
@@ -39,23 +63,16 @@
             }
         }
 
-        public static function categories_index() {
+        public static function board_index() {
             parent::check_logged_in();
 
             if (parent::has_permission('boardmanagement')) {
-                //View::make("settings/general.html", array('settings' => $settings)); 
-            }else {
-                self::no_access("Kategorioiden hallinta");
-            }
-        }
+                $categories = Category::all();
+                $boards = Board::all();
 
-        public static function boards_index() {
-            parent::check_logged_in();
-
-            if (parent::has_permission('boardmanagement')) {
-                //View::make("settings/general.html", array('settings' => $settings)); 
+                View::make("settings/board.html", array('categories' => $categories, 'boards' => $boards)); 
             }else {
-                self::no_access("Keskustelualueiden hallinta");
+                self::no_access("Kategorioiden ja keskustelualueiden hallinta");
             }
         }
 
@@ -66,6 +83,5 @@
                 parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
             }
         }
-
 
     }

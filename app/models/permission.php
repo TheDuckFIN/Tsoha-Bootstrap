@@ -81,4 +81,31 @@
             $query->execute();
         }
 
+        public function update() {
+            $query = DB::connection()->prepare('UPDATE Permission SET
+                    delete_thread = :delth, 
+                    delete_message = :delm, 
+                    edit_message = :edm, 
+                    lock_thread = :lt, 
+                    ban = :ban, 
+                    boardmanagement = :bman, 
+                    usergroupmanagement = :ugman, 
+                    settingsmanagement = :setman, 
+                    usermanagement = :uman
+                    WHERE usergroup_id = :groupid');
+
+            $query->bindValue(':groupid', $this->usergroup_id, PDO::PARAM_INT);
+            $query->bindValue(':delth', $this->delete_thread, PDO::PARAM_BOOL);
+            $query->bindValue(':delm', $this->delete_message, PDO::PARAM_BOOL);
+            $query->bindValue(':edm', $this->edit_message, PDO::PARAM_BOOL);
+            $query->bindValue(':lt', $this->lock_thread, PDO::PARAM_BOOL);
+            $query->bindValue(':ban', $this->ban, PDO::PARAM_BOOL);
+            $query->bindValue(':bman', $this->boardmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':ugman', $this->usergroupmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':setman', $this->settingsmanagement, PDO::PARAM_BOOL);
+            $query->bindValue(':uman', $this->usermanagement, PDO::PARAM_BOOL);
+
+            $query->execute();
+        }
+
     }
