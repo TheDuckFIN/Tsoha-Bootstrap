@@ -8,6 +8,10 @@
     BoardController::index();
   });
 
+  $routes->post('/board/delete/:id', function($id) {
+    BoardController::delete($id);
+  });
+
   $routes->get('/board/:id', function($id) {
     BoardController::show($id);
   });
@@ -100,10 +104,6 @@
     UserController::index();
   });
 
-  $routes->get('/usergroups/', function() {
-    UsergroupController::index();
-  });
-
   $routes->post('/usergroups/delete/:id', function($id) {
     UsergroupController::delete($id);
   });
@@ -140,6 +140,34 @@
     SettingsController::users_index();
   });
 
-  $routes->get('/settings/board/', function() {
-    SettingsController::board_index();
+  $routes->get('/settings/arrangement/', function() {
+    SettingsController::arrangement_index();
+  });
+
+  $routes->post('/category/delete/:id', function($id) {
+    CategoryController::delete($id);
+  });
+
+  $routes->post('/settings/arrangement/category/new/', function() {
+    CategoryController::save();
+  });
+
+  $routes->post('/settings/arrangement/category/edit/', function() {
+    CategoryController::update();
+  });
+
+  $routes->get('/settings/arrangement/board/new/:id', function($id) {
+    BoardController::create($id);
+  });
+
+  $routes->post('/settings/arrangement/board/new/', function() {
+    BoardController::save();
+  });
+
+  $routes->post('/settings/arrangement/board/edit/', function() {
+    BoardController::update();
+  });
+
+  $routes->get('/settings/arrangement/board/edit/:id', function($id) {
+    BoardController::edit($id);
   });

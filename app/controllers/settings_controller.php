@@ -63,14 +63,14 @@
             }
         }
 
-        public static function board_index() {
+        public static function arrangement_index() {
             parent::check_logged_in();
 
             if (parent::has_permission('boardmanagement')) {
                 $categories = Category::all();
                 $boards = Board::all();
 
-                View::make("settings/board.html", array('categories' => $categories, 'boards' => $boards)); 
+                View::make("settings/arrangement.html", array('categories' => $categories, 'boards' => $boards)); 
             }else {
                 self::no_access("Kategorioiden ja keskustelualueiden hallinta");
             }
