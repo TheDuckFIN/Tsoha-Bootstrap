@@ -138,7 +138,7 @@
 		}
 
 		public function delete() {
-			$thread_messages = Message::all_by_thread_id($this->id);
+			$thread_messages = Message::all($this->id);
 
 			foreach ($thread_messages as $msg) {
 				$msg->delete();

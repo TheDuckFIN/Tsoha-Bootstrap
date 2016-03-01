@@ -15,6 +15,10 @@
 	{% endif %}
 </div>
 
+{% if categories is empty %}
+	<em>Ei vielä yhtään kategoriaa tai keskustelualuetta!</em>
+{% endif %}
+
 <div class="list">	
 	{% for category in categories %}
 		<table class="table table-striped-custom table-bordered-custom">
