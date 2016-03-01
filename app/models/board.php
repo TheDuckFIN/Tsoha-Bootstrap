@@ -34,10 +34,10 @@
 
 		public static function all($category = null) {
 			if (!$category) {
-				$query = DB::connection()->prepare('SELECT * FROM Board');
+				$query = DB::connection()->prepare('SELECT * FROM Board ORDER BY id');
 				$query->execute();
 			}else {
-				$query = DB::connection()->prepare('SELECT * FROM Board WHERE category_id = :id');
+				$query = DB::connection()->prepare('SELECT * FROM Board WHERE category_id = :id ORDER BY id');
 				$query->execute(array('id' => $category));
 			}
 
@@ -88,7 +88,7 @@
 		}
 
 		public function update() {
-			$query = DB::connection()->prepare('UPDATE Category SET name = :name, description = :description WHERE id = :id');
+			$query = DB::connection()->prepare('UPDATE Board SET name = :name, description = :description WHERE id = :id');
 			$query->execute(array('name' => $this->name, 'description' => $this->description, 'id' => $this->id));
 		}
 

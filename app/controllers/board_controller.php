@@ -41,6 +41,50 @@
 			));
 		}
 
+        public static function edit($id) {
+            parent::check_logged_in();
+
+            if (parent::has_permission('boardmanagement')) {
+                $board = Board::find($id);
+
+                if (!$board) {
+                    parent::throw_error('Keskustelualueen ID virheellinen!');
+                }else {
+                    View::make('board/edit.html', array('board' => $board));
+                }
+            }else {
+                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+            }
+        }
+
+        public static function update() {
+            parent::check_logged_in();
+
+            if (parent::has_permission('boardmanagement')) {
+                $params = $_POST;
+
+                $board = Board::find($params['board_id']);
+
+                if (!$board) {
+                	parent::throw_error('Keskustelualueen ID virheellinen');
+                }
+
+                $board->name = $params['name'];
+                $board->description = $params['description'];
+
+                $valid = $board->validate();
+
+                if ($valid === true) {
+                    $board->update();
+                    Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue päivitetty onnistuneesti!', 'style' => 'success'));
+                }else {
+                    Redirect::to('/settings/arrangement/board/edit/' . $board->id, array('errors' => $valid));
+                }
+            }else {
+                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+            }
+        }
+
         public static function create($id) {
             parent::check_logged_in();
 
