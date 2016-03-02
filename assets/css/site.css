@@ -9,6 +9,20 @@ body {
   margin-bottom: 128px;
 }
 
+.achievement {
+    min-height: 76px;
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 4px;
+    border: 2px solid #c0c0c0;
+    background: #f0f0f0;
+}
+
+.achievement span {
+    font-weight: bold;
+    font-size: 16px;
+}
+
 .list {
     margin-top: 12px;
 }

@@ -171,3 +171,7 @@
   $routes->get('/settings/arrangement/board/edit/:id', function($id) {
     BoardController::edit($id);
   });
+
+  $routes->get('/achievements', function() {
+    AchievementController::index();
+  });

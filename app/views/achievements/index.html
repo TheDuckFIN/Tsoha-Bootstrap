@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="forum-header">
+    <small>
+        <a href="{{base_path}}">Etusivu</a> < 
+        <a href="{{base_path}}/achievements">Saavutukset</a>
+    </small>
+
+    <h2>Saavutukset</h2>
+</div>
+
+<div class="list">
+    {% if achievements is empty %}
+        <em>Keskustelupalstalla ei ole yhtään saavutuksia saatavilla</em>
+    {% endif %}
+
+    {% for row in achievements|batch(2) %}
+        <div class="row">
+            {% for ach in row %}
+                <div class="col-xs-6">
+                    <div class="achievement">
+                        <span>{{ach.name}}</span><br>
+                        {{ach.description}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

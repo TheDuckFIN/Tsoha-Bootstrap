@@ -11,6 +11,15 @@ INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_messag
 INSERT INTO Permission (usergroup_id, delete_thread, delete_message, edit_message, lock_thread, ban, boardmanagement, usergroupmanagement, settingsmanagement, usermanagement)
 	VALUES (3, true, true, true, true, true, true, true, true, true);
 
+INSERT INTO Achievement (name, description) VALUES ('Rekisteröitynyt käyttäjä', 'Olet onnistuneesti luonut käyttäjän foorumille! Mahtavaa! Tervetuloa joukkoomme :)');
+INSERT INTO Achievement (name, description) VALUES ('Moderaattori', 'Oho, olet saavuttanut selvästi jotain suurta, sillä moderaattoriksi ei pääse ihan joka poika! Pidä hauskaa viestejä poistellessa! :)');
+INSERT INTO Achievement (name, description) VALUES ('Ylläpitäjä', 'Olet kingi.');
+INSERT INTO Achievement (name, description) VALUES ('Ensimmäinen viesti', 'Woohoo! Olet kirjoittanut ensimmäisen viestisi! Siitä se lähtee :)');
+INSERT INTO Achievement (name, description) VALUES ('Kymmenen viestiä', 'Oho, sinäpäs olet vauhdissa! Kymmenen viestiä on jo melko paljon!');
+INSERT INTO Achievement (name, description) VALUES ('50 viestiä', 'Jos viestien lähettämisestä palkittaisiin, saisit jo varmasti pronssia! Onnittelut!');
+INSERT INTO Achievement (name, description) VALUES ('100 viestiä', 'Tämä alkaa olemaan jo hopeamitalin arvoinen suoritus... Oletko varma etteivät sormesi kulu puhki viestien kirjoittamisesta?');
+INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! SE ON SIINÄ!!! Sormesi ovar varmaan jo ihan ruvilla, mutta ei se haittaa, SILLÄ VOITIT KULTAA!!!');
+
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
 	VALUES  (3, 'vlakanie', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
