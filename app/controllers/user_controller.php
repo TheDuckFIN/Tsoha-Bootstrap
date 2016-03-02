@@ -16,8 +16,9 @@
 			}
 
 			$group = Usergroup::find($user->usergroup_id);
+			$achievements = Achievement::user_achievements($id);
 
-			View::make("user/show.html", array('user' => $user, 'group' => $group));
+			View::make("user/show.html", array('user' => $user, 'group' => $group, 'achievements' => $achievements));
 		}
 
 		public static function edit($id) {
@@ -111,6 +112,7 @@
 						}else {
 							$user->usergroup_id = $params['usergroup'];
 							if ($user->update()) {
+								parent::check_user_achievements($user);
 								Redirect::to('/user/' . $user->id, array('message' => 'Käyttäjäryhmä asetettu!'));
 							}else {
 								parent::throw_error('Virheellinen käyttäjäryhmän ID!');
@@ -178,7 +180,7 @@
 				//kirjaudu automaattisesti sisään
 				$_SESSION['user'] = $id;
 				//ja ohjaa omaan profiiliin
-				Redirect::to('/user/' . $id, array('message' => 'Käyttäjä luotu onnistuneesti! Tässä uusi profiilisi, voit nyt muokata vapaasti asetuksiasi ja aloittaa keskustelupalstn käytön!'));
+				Redirect::to('/user/' . $id, array('message' => 'Käyttäjä luotu onnistuneesti! Tässä uusi profiilisi, voit nyt muokata vapaasti asetuksiasi ja aloittaa keskustelupalstan käytön!'));
 			}else {
 				View::make('user/register.html', array('errors' => $valid, 'username' => $params['username'], 'email' => $params['email']));
 			}

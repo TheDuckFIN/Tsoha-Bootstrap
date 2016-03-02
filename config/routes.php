@@ -172,6 +172,10 @@
     BoardController::edit($id);
   });
 
-  $routes->get('/achievements', function() {
+  $routes->get('/achievements/', function() {
     AchievementController::index();
+  });
+
+  $routes->get('/achievements/:id', function($id) {
+    AchievementController::user($id);
   });

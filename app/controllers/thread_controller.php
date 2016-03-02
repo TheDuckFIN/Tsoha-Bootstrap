@@ -86,6 +86,7 @@
 					$thread_id = $thread->save();
 					$message->thread_id = $thread_id;
 					$message->save();
+					parent::check_user_achievements(parent::get_user_logged_in());
 
 					Redirect::to('/thread/' . $thread_id, array('alert_msg' => 'Keskustelu luotu onnistuneesti!'));
 				}else {

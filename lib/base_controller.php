@@ -20,6 +20,57 @@
       }
     }
 
+    public static function check_user_achievements($user) {
+
+/*
+INSERT INTO Achievement (name, description) VALUES ('Moderaattori', 'Oho, olet saavuttanut selvästi jotain suurta, sillä moderaattoriksi ei pääse ihan joka poika! Pidä hauskaa viestejä poistellessa! :)');
+INSERT INTO Achievement (name, description) VALUES ('Ylläpitäjä', 'Olet kingi.');
+INSERT INTO Achievement (name, description) VALUES ('Ensimmäinen viesti', 'Woohoo! Olet kirjoittanut ensimmäisen viestisi! Siitä se lähtee :)');
+INSERT INTO Achievement (name, description) VALUES ('Kymmenen viestiä', 'Oho, sinäpäs olet vauhdissa! Kymmenen viestiä on jo melko paljon!');
+INSERT INTO Achievement (name, description) VALUES ('50 viestiä', 'Jos viestien lähettämisestä palkittaisiin, saisit jo varmasti pronssia! Onnittelut!');
+INSERT INTO Achievement (name, description) VALUES ('100 viestiä', 'Tämä alkaa olemaan jo hopeamitalin arvoinen suoritus... Oletko varma etteivät sormesi kulu puhki viestien kirjoittamisesta?');
+INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! SE ON SIINÄ!!! Sormesi ovar varmaan jo ihan ruvilla, mutta ei se haittaa, SILLÄ VOITIT KULTAA!!!');
+*/
+
+      $achievements = Achievement::user_achievements($user->id);
+      $postcount = $user->postcount();
+
+      //Moderaattori
+      if (!isset($achievements[1]) && $user->usergroup_id == 2) {
+        Achievement::add_achievement(1, $user);
+      }
+
+      //Ylläpitäjä
+      if (!isset($achievements[2]) && $user->usergroup_id == 3) {
+        Achievement::add_achievement(2, $user);
+      }
+
+      //1 viesti
+      if (!isset($achievements[3]) && $postcount >= 1) {
+        Achievement::add_achievement(3, $user);
+      }
+
+      //10 viestiä
+      if (!isset($achievements[4]) && $postcount >= 10) {
+        Achievement::add_achievement(4, $user);
+      }
+
+      //50 viestiä
+      if (!isset($achievements[5]) && $postcount >= 50) {
+        Achievement::add_achievement(5, $user);
+      }
+
+      //100 viestiä
+      if (!isset($achievements[6]) && $postcount >= 100) {
+        Achievement::add_achievement(6, $user);
+      }
+
+      //200 viestiä
+      if (!isset($achievements[7]) && $postcount >= 200) {
+        Achievement::add_achievement(7, $user);
+      }
+    }
+
     public static function throw_error($msg) {
       Redirect::to('/', array('message' => $msg, 'style' => 'danger'));
     }

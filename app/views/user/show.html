@@ -4,7 +4,7 @@
 <div class="forum-header">
 	<small>
 		<a href="{{base_path}}">Etusivu</a> < 
-		<a href="{{base_path}}/profile/{{user.id}}">{{user.username}}</a>
+		<a href="{{base_path}}/user/{{user.id}}">{{user.username}}</a>
 	</small>
 </div>
 
@@ -64,18 +64,32 @@
 					</tr>
 				</tbody>
 			</table>
+
+			{% if (user_logged_in.id == user.id) or permissions.usermanagement %}
+				<div style="margin-top: 12px;">
+					<a href="{{base_path}}/user/{{user.id}}/settings" class="btn btn-primary">Muokkaa asetuksia</a>
+				</div>
+			{% endif %}
 		</div>
 		<div class="col-xs-6">
 			<h3>Käyttäjän saavutukset</h3>
-			<em>Käyttäjällä ei ole vielä yhtään saavutusta</em>
+			{% if achievements is empty %}
+				<em>Käyttäjällä ei ole vielä yhtään saavutusta</em>
+			{% else %}
+				{% for ach in achievements|slice(0,2) %}
+	                <div class="achievement">
+	                    <img src="{{base_path}}/assets/img/achievement.png">
+	                    <span>{{ach.name}}</span><br>
+	                    {{ach.description}}
+	                </div>
+				{% endfor %}
+				
+				{% if achievements|length > 2 %}
+					<b>Yhteensä {{achievements|length}} saavutusta! <a href="{{base_path}}/achievements/{{user.id}}">Näytä kaikki!</a></b>
+				{% endif %}
+			{% endif %}
 		</div>
 	</div>
 </div>
-
-{% if (user_logged_in.id == user.id) or permissions.usermanagement %}
-	<div style="margin-top: 12px;">
-		<a href="{{base_path}}/user/{{user.id}}/settings" class="btn btn-primary">Muokkaa asetuksia</a>
-	</div>
-{% endif %}
 
 {% endblock %}

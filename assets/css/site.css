@@ -70,10 +70,14 @@ body {
 	padding: 6px;
 }
 
-.navbar-custom a {
-	color: #FFFFFF;
+.navlink {
+	color: #FFFFFF !important;
 	font-weight: bold;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.navbar-toggle {
+    background: #F0F0F0;
 }
 
 .header {

@@ -39,6 +39,7 @@
 
 			if (!is_array($valid)) {
 				$message->save();
+				parent::check_user_achievements(parent::get_user_logged_in());
 
 				Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Viesti lähetetty onnistuneesti!'));		
 			}else {
