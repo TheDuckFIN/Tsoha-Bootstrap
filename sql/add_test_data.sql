@@ -20,6 +20,10 @@ INSERT INTO Achievement (name, description) VALUES ('50 viestiä', 'Jos viestien
 INSERT INTO Achievement (name, description) VALUES ('100 viestiä', 'Tämä alkaa olemaan jo hopeamitalin arvoinen suoritus... Oletko varma etteivät sormesi kulu puhki viestien kirjoittamisesta?');
 INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! SE ON SIINÄ!!! Sormesi ovar varmaan jo ihan ruvilla, mutta ei se haittaa, SILLÄ VOITIT KULTAA!!!');
 
+
+
+
+
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
 	VALUES  (3, 'vlakanie', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
@@ -34,6 +38,11 @@ INSERT INTO Member (usergroup_id, username, password, email, show_email, registe
     VALUES  (1, 'testi2', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
     VALUES  (1, 'käyttäjä', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+
+INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 1);
+INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 3);
+INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 4);
+INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 5);
 
 INSERT INTO Category (name) VALUES ('Yleinen');
 

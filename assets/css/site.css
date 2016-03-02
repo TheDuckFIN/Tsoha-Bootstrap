@@ -23,6 +23,11 @@ body {
     font-size: 16px;
 }
 
+.achievement img {
+    float: left;
+    margin-right: 6px;
+}
+
 .list {
     margin-top: 12px;
 }
