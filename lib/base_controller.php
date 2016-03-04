@@ -21,17 +21,6 @@
     }
 
     public static function check_user_achievements($user) {
-
-/*
-INSERT INTO Achievement (name, description) VALUES ('Moderaattori', 'Oho, olet saavuttanut selvästi jotain suurta, sillä moderaattoriksi ei pääse ihan joka poika! Pidä hauskaa viestejä poistellessa! :)');
-INSERT INTO Achievement (name, description) VALUES ('Ylläpitäjä', 'Olet kingi.');
-INSERT INTO Achievement (name, description) VALUES ('Ensimmäinen viesti', 'Woohoo! Olet kirjoittanut ensimmäisen viestisi! Siitä se lähtee :)');
-INSERT INTO Achievement (name, description) VALUES ('Kymmenen viestiä', 'Oho, sinäpäs olet vauhdissa! Kymmenen viestiä on jo melko paljon!');
-INSERT INTO Achievement (name, description) VALUES ('50 viestiä', 'Jos viestien lähettämisestä palkittaisiin, saisit jo varmasti pronssia! Onnittelut!');
-INSERT INTO Achievement (name, description) VALUES ('100 viestiä', 'Tämä alkaa olemaan jo hopeamitalin arvoinen suoritus... Oletko varma etteivät sormesi kulu puhki viestien kirjoittamisesta?');
-INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! SE ON SIINÄ!!! Sormesi ovar varmaan jo ihan ruvilla, mutta ei se haittaa, SILLÄ VOITIT KULTAA!!!');
-*/
-
       $achievements = Achievement::user_achievements($user->id);
       $postcount = $user->postcount();
 
@@ -88,6 +77,22 @@ INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! S
           exit("Error: Invalid permission: " . $name);
         }else {
           return $permission;
+        }
+      }
+    }
+
+    public static function check_permission($permission, $title = null) {
+      self::check_logged_in();
+
+      if (!self::has_permission($permission)) {
+        if (!$title) {
+          self::throw_error('Sinulla ei ole oikeuksia toimintoon!');
+        }else {
+          if (self::has_permission('boardmanagement') || self::has_permission('usermanagement') || self::has_permission('usergroupmanagement') || self::has_permission('settingsmanagement')) {
+            View::make("settings/nopermission.html", array('title' => $title));
+          }else {
+            self::throw_error('Sinulla ei ole oikeuksia toimintoon!');
+          }        
         }
       }
     }

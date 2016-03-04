@@ -44,8 +44,14 @@
 	{% for msg in messages %}
 		<div class="single-post">
 			<div class="single-post-header">	
-				Lähetetty {{msg.time}} <!-- (( muokattu x kertaa, viimeisin insert_aika_here )) -->
-				
+				<div>
+					Lähetetty {{msg.time}} 
+					
+					{% if edit[msg.id] is not empty %}
+						(muokattu {{edit[msg.id]|length}} kertaa, viimeisin {{edit[msg.id]|first.time}} <a href="{{base_path}}/edits/{{msg.id}}">näytä muokkaushistoria</a>)
+					{% endif %}	
+				</div>
+
 				<span class="single-post-header-buttons">
 					{% if user_logged_in %}
 						{% if thread.locked == false %}

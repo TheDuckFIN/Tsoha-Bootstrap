@@ -179,3 +179,7 @@
   $routes->get('/achievements/:id', function($id) {
     AchievementController::user($id);
   });
+
+  $routes->get('/edits/:id', function($id) {
+    EditController::show($id);
+  });

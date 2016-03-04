@@ -170,11 +170,11 @@
 		}
 
 		public function delete() {
-			$delete_msg = DB::connection()->prepare('DELETE FROM Message WHERE id = :id');
-			$delete_msg->execute(array('id' => $this->id));
-
 			$delete_edits = DB::connection()->prepare('DELETE FROM Edit WHERE message_id = :id');
 			$delete_edits->execute(array('id' => $this->id));
+
+			$delete_msg = DB::connection()->prepare('DELETE FROM Message WHERE id = :id');
+			$delete_msg->execute(array('id' => $this->id));
 		}
 
 	}

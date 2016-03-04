@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="forum-header">
+    <small>
+        <a href="{{base_path}}">Etusivu</a> < 
+        <a href="{{base_path}}/board/{{board.id}}">{{board.name}}</a> < 
+        <a href="{{base_path}}/thread/{{thread.id}}">{{thread.title}}</a> <
+        <a href="{{base_path}}/edits/{{msg.id}}">Muokkaushistoria</a> 
+    </small>
+    
+    <h2>Muokkaushistoria</h2>
+</div>
+
+{% if edits is empty %}
+    <em>Ei muokkauksia</em>
+{% else %}
+    <div class="list">  
+        <table class="table table-striped-custom table-bordered-custom">
+            <thead>
+                <tr class="header">
+                    <th>#</th>
+                    <th class="col-xs-2">Muokkaaja</th>
+                    <th class="col-xs-2">Aika</th>
+                    <th class="col-xs-8">Lisätietoja</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for edit in edits %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td><a href="{{base_path}}/user/{{user[edit.editor_id].id}}">{{user[edit.editor_id].username}}</a></td>
+                        <td>{{edit.time}}</td>
+                        <td>
+                            {% if edit.description is empty %}
+                                <em>Ei lisätietoja</em>
+                            {% else %}
+                                {{edit.description}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+{% endblock %}

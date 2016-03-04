@@ -42,108 +42,88 @@
 		}
 
         public static function edit($id) {
-            parent::check_logged_in();
+            parent::check_permission('boardmanagement');
 
-            if (parent::has_permission('boardmanagement')) {
-                $board = Board::find($id);
+            $board = Board::find($id);
 
-                if (!$board) {
-                    parent::throw_error('Keskustelualueen ID virheellinen!');
-                }else {
-                    View::make('board/edit.html', array('board' => $board));
-                }
+            if (!$board) {
+                parent::throw_error('Keskustelualueen ID virheellinen!');
             }else {
-                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+                View::make('board/edit.html', array('board' => $board));
             }
         }
 
         public static function update() {
-            parent::check_logged_in();
+            parent::check_permission('boardmanagement');
 
-            if (parent::has_permission('boardmanagement')) {
-                $params = $_POST;
+            $params = $_POST;
 
-                $board = Board::find($params['board_id']);
+            $board = Board::find($params['board_id']);
 
-                if (!$board) {
-                	parent::throw_error('Keskustelualueen ID virheellinen');
-                }
+            if (!$board) {
+            	parent::throw_error('Keskustelualueen ID virheellinen');
+            }
 
-                $board->name = $params['name'];
-                $board->description = $params['description'];
+            $board->name = $params['name'];
+            $board->description = $params['description'];
 
-                $valid = $board->validate();
+            $valid = $board->validate();
 
-                if ($valid === true) {
-                    $board->update();
-                    Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue päivitetty onnistuneesti!', 'style' => 'success'));
-                }else {
-                    Redirect::to('/settings/arrangement/board/edit/' . $board->id, array('errors' => $valid));
-                }
+            if ($valid === true) {
+                $board->update();
+                Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue päivitetty onnistuneesti!', 'style' => 'success'));
             }else {
-                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+                Redirect::to('/settings/arrangement/board/edit/' . $board->id, array('errors' => $valid));
             }
         }
 
         public static function create($id) {
-            parent::check_logged_in();
+            parent::check_permission('boardmanagement');
 
-            if (parent::has_permission('boardmanagement')) {
-                $category = Category::find($id);
+            $category = Category::find($id);
 
-                if (!$category) {
-                    parent::throw_error('Kategorian ID virheellinen!');
-                }else {
-                    View::make('board/new.html', array('category' => $category));
-                }
+            if (!$category) {
+                parent::throw_error('Kategorian ID virheellinen!');
             }else {
-                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+                View::make('board/new.html', array('category' => $category));
             }
         }
 
         public static function save() {
-            parent::check_logged_in();
+            parent::check_permission('boardmanagement');
+                
+            $params = $_POST;
 
-            if (parent::has_permission('boardmanagement')) {
-                $params = $_POST;
+            if (!Category::find($params['category_id'])) {
+            	parent::throw_error('Kategorian ID virheellinen');
+            }
 
-                if (!Category::find($params['category_id'])) {
-                	parent::throw_error('Kategorian ID virheellinen');
-                }
+            $board = new Board(array(
+            	'name' => $params['name'],
+            	'description' => $params['description'],
+            	'category_id' => $params['category_id']
+        	));
 
-                $board = new Board(array(
-                	'name' => $params['name'],
-                	'description' => $params['description'],
-                	'category_id' => $params['category_id']
-            	));
+            $valid = $board->validate();
 
-                $valid = $board->validate();
-
-                if ($valid === true) {
-                    $board->save();
-                    Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue luotu onnistuneesti!', 'style' => 'success'));
-                }else {
-                    Redirect::to('/settings/arrangement/board/new/' . $board->category_id, array('errors' => $valid, 'name' => $params['name'], 'description' => $params['description']));
-                }
+            if ($valid === true) {
+                $board->save();
+                Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue luotu onnistuneesti!', 'style' => 'success'));
             }else {
-                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+                Redirect::to('/settings/arrangement/board/new/' . $board->category_id, array('errors' => $valid, 'name' => $params['name'], 'description' => $params['description']));
             }
         }
 
         public static function delete($id) {
-            parent::check_logged_in();
+            parent::check_permission('boardmanagement');
 
-            if (parent::has_permission('boardmanagement')) {
-                $board = Board::find($id);
+            $board = Board::find($id);
 
-                if (!$board) {
-                    parent::throw_error('Keskustelualueen ID virheellinen!');
-                }else {
-                    $board->delete();
-                    Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue poistettu onnistuneesti!', 'style' => 'success'));
-                }
+            if (!$board) {
+                parent::throw_error('Keskustelualueen ID virheellinen!');
             }else {
-                parent::throw_error('Sinulla ei ole oikeuksia hallintapaneeliin!');
+                $board->delete();
+                Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue poistettu onnistuneesti!', 'style' => 'success'));
             }
         }
 

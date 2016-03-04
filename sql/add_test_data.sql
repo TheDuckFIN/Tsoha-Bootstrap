@@ -38,10 +38,9 @@ INSERT INTO Member (usergroup_id, username, password, email, show_email, registe
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
     VALUES  (1, 'käyttäjä', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
 
+INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 1);
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 2);
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 3);
-INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 4);
-INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 5);
 
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (2, 3);
 

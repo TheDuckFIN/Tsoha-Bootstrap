@@ -91,11 +91,23 @@
 
 			$message->message = $params['message'];
 
+			$edit = new Edit(array(
+				'message_id' => $message->id,
+				'editor_id' => parent::get_user_logged_in()->id,
+				'description' => $params['description']
+			));
+
 			if ((parent::get_user_logged_in()->id == $message->sender_id) || parent::has_permission('edit_message')) {
 				$valid = $message->validate(false);
 
+				if (!$edit->validate()) {
+					if (!is_array($valid)) $valid = array();
+					$valid[] = "Muokkauksen kuvaus saa olla maksimissaan 100 merkkiä pitkä!";	
+				}
+
 				if (!is_array($valid)) {
 					$message->update();
+					$edit->save();
 
 					Redirect::to('/thread/' . $message->thread_id, array('alert_msg' => 'Muokkaukset tallennettu!'));
 				}else {
@@ -106,7 +118,8 @@
 						'errors' => $valid, 
 						'message' => $message, 
 						'thread' => $thread,
-						'board' => $board
+						'board' => $board,
+						'description' => $params['description']
 					));
 				}
 			}else {

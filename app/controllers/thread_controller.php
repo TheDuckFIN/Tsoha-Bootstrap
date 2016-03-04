@@ -12,6 +12,7 @@
 			$messages = Message::all($id);
 			$users = User::all();
 			$groups = Usergroup::all();
+			$edits = Edit::all_by_thread($id);
 
 			foreach ($messages as $msg) {
 				$msg->message = parent::bbcodeify($msg->message);
@@ -22,7 +23,8 @@
 				'board' => $board,
 				'messages' => $messages,
 				'user' => $users,
-				'group' => $groups
+				'group' => $groups,
+				'edit' => $edits
 			));
 		}
 
