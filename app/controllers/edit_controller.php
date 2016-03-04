@@ -12,6 +12,7 @@
             $thread = Thread::find($message->thread_id);
             $board = Board::find($thread->board_id);
             $edits = Edit::all_by_msg($id);
+            $groups = Usergroup::all();
             $users = User::all();
 
             View::make('edit/show.html', array(
@@ -19,6 +20,7 @@
                 'thread' => $thread,
                 'board' => $board,
                 'user' => $users,
+                'group' => $groups,
                 'edits' => $edits
             ));
         }

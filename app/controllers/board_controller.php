@@ -6,6 +6,7 @@
 			$categories = Category::all();
 			$boards = Board::all();
 			$lastmsg = array();
+            $groups = Usergroup::all();
 
 			foreach ($boards as $board) {
 				$lastmsg[$board->id] = Message::last_message_by_board_id($board->id);
@@ -14,7 +15,8 @@
 			View::make('board/index.html', array(
 				'categories' => $categories, 
 				'boards' => $boards,
-				'lastmsg' => $lastmsg
+				'lastmsg' => $lastmsg,
+                'group' => $groups
 			));
 		}
 
@@ -27,6 +29,7 @@
 
 			$threads = Thread::find_all_by_board($id);
 			$users = User::all();
+            $groups = Usergroup::all();
 			$lastmsg = array();
 
 			foreach ($threads as $thread) {
@@ -37,6 +40,7 @@
 				'board' => $board, 
 				'threads' => $threads, 
 				'user' => $users,
+                'group' => $groups,
 				'lastmsg' => $lastmsg
 			));
 		}

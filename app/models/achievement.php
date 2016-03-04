@@ -52,8 +52,8 @@
         }
 
         public static function add_achievement($id, $user) {
-            $query = DB::connection()->prepare('INSERT INTO Member_achievement (member_id, achievement_id) VALUES (:user, :achi)');
-            $query->execute(array('achi' => $id, 'user' => $user->id));
+            $query = DB::connection()->prepare('INSERT INTO Member_achievement (member_id, achievement_id) VALUES (:user, :achievement)');
+            $query->execute(array('achievement' => $id, 'user' => $user->id));
         }
 
 

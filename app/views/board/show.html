@@ -47,7 +47,7 @@
 							<br />
 							<small>
 								{% if user[thread.starter_id] %}
-									<a href="{{base_path}}/user/{{user[thread.starter_id].id}}">{{user[thread.starter_id].username}}</a>
+									<a href="{{base_path}}/user/{{user[thread.starter_id].id}}" style="color: {{group[user[thread.starter_id].usergroup_id].color}};">{{user[thread.starter_id].username}}</a>
 								{% else %}
 									[Poistettu käyttäjä]
 								{% endif %}
@@ -57,7 +57,7 @@
 						<td>
 							{{lastmsg[thread.id]['msg'].time}}<br />
 							{% if lastmsg[thread.id]['user'] %}
-								<a href="{{base_path}}/user/{{lastmsg[thread.id]['user'].id}}">{{lastmsg[thread.id]['user'].username}}</a>
+								<a href="{{base_path}}/user/{{lastmsg[thread.id]['user'].id}}" style="color: {{group[lastmsg[thread.id]['user'].usergroup_id].color}};">{{lastmsg[thread.id]['user'].username}}</a>
 							{% else %}
 								[Poistettu käyttäjä]
 							{% endif %}

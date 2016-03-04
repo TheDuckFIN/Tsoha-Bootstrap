@@ -1,6 +1,6 @@
 INSERT INTO Forum_settings (name, msg_size) VALUES ('Keskustelupalsta', 25000);
 
-INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#333333', true);
+INSERT INTO Usergroup (name, color, locked) VALUES ('Rekisteröitynyt käyttäjä', '#428bca', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Moderaattori', '#00FF00', true);
 INSERT INTO Usergroup (name, color, locked) VALUES ('Ylläpitäjä', '#FF0000', true);
 
@@ -19,67 +19,27 @@ INSERT INTO Achievement (name, description) VALUES ('50 viestiä', 'Jos viestien
 INSERT INTO Achievement (name, description) VALUES ('100 viestiä', 'Tämä alkaa olemaan jo hopeamitalin arvoinen suoritus... Oletko varma etteivät sormesi kulu puhki viestien kirjoittamisesta?');
 INSERT INTO Achievement (name, description) VALUES ('200 viestiä', 'KULTAA!!! SE ON SIINÄ!!! Sormesi ovar varmaan jo ihan ruvilla, mutta ei se haittaa, SILLÄ VOITIT KULTAA!!!');
 
-
-
-
-
 INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (3, 'vlakanie', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (1, 'jorma', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-	VALUES  (2, 'modemies', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-    VALUES  (1, 'matti', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-    VALUES  (1, 'testi1', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-    VALUES  (1, 'testi2', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
-INSERT INTO Member (usergroup_id, username, password, email, show_email, registered) 
-    VALUES  (1, 'käyttäjä', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'testi@testi.fi', true, CURRENT_TIMESTAMP);
+	VALUES  (3, 'admin', '$1$1T0gMIgx$SiM/dArM7CGQGg295Q4wd0', 'admin@email.com', true, CURRENT_TIMESTAMP);
 
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 1);
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 2);
 INSERT INTO Member_achievement(member_id, achievement_id) VALUES (1, 3);
 
-INSERT INTO Member_achievement(member_id, achievement_id) VALUES (2, 3);
+INSERT INTO Category (name) VALUES ('Oletuskategoria');
 
-INSERT INTO Member_achievement(member_id, achievement_id) VALUES (3, 1);
-INSERT INTO Member_achievement(member_id, achievement_id) VALUES (3, 3);
+INSERT INTO Board (category_id, name, description) VALUES (1, 'Oletusalue', 'Valmiiksi generoitu keskustelualue');
 
-INSERT INTO Category (name) VALUES ('Yleinen');
+INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 1, 'Tervetuloa käyttämään keskustelupalstaa!', false);
 
-INSERT INTO Board (category_id, name, description) VALUES (1, 'Testialue', 'Alueen kuvaus');
-INSERT INTO Board (category_id, name, description) VALUES (1, 'Testialue 2', 'Alueen kuvaus! BLAA BLAA');
+INSERT INTO Message (sender_id, thread_id, time, message, firstpost) 
+    VALUES (1, 1, CURRENT_TIMESTAMP, '[b]Tämä on automaattisesti generoitu viesti, jossa saat muutamia ohjeita keskustelupalstan käyttöön.[/b]
 
-INSERT INTO Category (name) VALUES ('Taide');
+    Aloittaaksesi keskustelupalstan käytön, tulee sinun konfiguroida keskustelupalstan asetukset mieleiseksisi. Voit kirjautua tälle ylläpitäjäkäyttäjälle seuraavilla tunnuksilla:
 
-INSERT INTO Board (category_id, name, description) VALUES (2, 'Kuvataide', 'Piirustuksia!');
-INSERT INTO Board (category_id, name, description) VALUES (2, 'Musiikki', 'Lallalalalaa');
-INSERT INTO Board (category_id, name, description) VALUES (2, 'Nykytaide', 'Anything');
+    [b]Tunnus:[/b] admin
+    [b]Salasana:[/b] salasana
+    
+    Aluksi kannattaa luoda itsellesi uusi käyttäjä, jolle asetat yllä mainitulla käyttäjällä ylläpitäjä-statuksen hallintapaneelista. Alkuperäinen admin-käyttäjä kannattaa poistaa. Tämän jälkeen voit esimerkiksi vaihtaa keskustelualueen nimen mieleiseksesi hallintapaneelin etusivulta. Luo haluamasi kategoriat ja keskustelualueet hallintapaneelista. Voit halutessasi myös luoda uusia käyttäjäryhmiä, elleivät nykyiset vastaa tarpeitasi. Kaiken automaattisesti generoidun, kuten tämän viestin voit huoletta poistaa!
 
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 3, 'Keskustelu 1', false);
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 1, 'KeskusSAJDJA', false);
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 2, 'TESTI', true);
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (1, 1, 'Jassooo', false);
-
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 2, 'adsadsa asdasd', false);
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 3, 'KeskAAIJFLSKAL', false);
-INSERT INTO Thread (board_id, starter_id, title, locked) VALUES (2, 1, 'örpöpröpö', false);
-
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (3, 1, CURRENT_TIMESTAMP, 'Lorem ipsum...', true);
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Loreadsdsam ipsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 1, CURRENT_TIMESTAMP, 'Lorem ipsdsadasum...');
-
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 2, CURRENT_TIMESTAMP, 'Lorem asdadasd...', true);
-
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm ipasddsasum...', true);
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasdasdsadasdm ipsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (1, 3, CURRENT_TIMESTAMP, 'Loreasddasasdsaasdm ipsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (3, 3, CURRENT_TIMESTAMP, 'Loreasdadaadasdm ipsum...');
-INSERT INTO Message (sender_id, thread_id, time, message) VALUES (2, 3, CURRENT_TIMESTAMP, 'Loreasddasdm iasdsapsum...');
-
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 4, CURRENT_TIMESTAMP, 'Lorem ipsum...', true);
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (2, 5, CURRENT_TIMESTAMP, 'Lortretretwem igfdgfdgfdpsum...', true);
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (3, 6, CURRENT_TIMESTAMP, 'Lorem ipsuytrtrurm...', true);
-INSERT INTO Message (sender_id, thread_id, time, message, firstpost) VALUES (1, 7, CURRENT_TIMESTAMP, 'Loremasddsadsa ipsum...', true);
+    Foorumilla on käytössä muutamia bbcode-tageja, kuten [ i ], [ b ] sekä [ u ]. Tuki on kuitenkin todella rajoittunut tässä versiossa. Hauskaa keskustelua!', true);

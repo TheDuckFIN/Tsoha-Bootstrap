@@ -45,7 +45,7 @@
 										<b><a href="{{base_path}}/thread/{{lastmsg[board.id]['thread'].id}}">{{lastmsg[board.id]['thread'].title}}</a></b><br />
 										{{lastmsg[board.id]['msg'].time}}<br />
 										{% if lastmsg[board.id]['user'] %}
-											<a href="{{base_path}}/user/{{lastmsg[board.id]['user'].id}}">{{lastmsg[board.id]['user'].username}}</a>
+											<a href="{{base_path}}/user/{{lastmsg[board.id]['user'].id}}" style="color: {{group[lastmsg[board.id]['user'].usergroup_id].color}};">{{lastmsg[board.id]['user'].username}}</a>
 										{% else %}
 											[Poistettu käyttäjä]
 										{% endif %}

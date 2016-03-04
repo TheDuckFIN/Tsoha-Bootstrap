@@ -30,7 +30,9 @@
                 {% for edit in edits %}
                     <tr>
                         <td>{{loop.index}}</td>
-                        <td><a href="{{base_path}}/user/{{user[edit.editor_id].id}}">{{user[edit.editor_id].username}}</a></td>
+                        <td>
+                            <a href="{{base_path}}/user/{{user[edit.editor_id].id}}" style="color: {{group[user[edit.editor_id].usergroup_id].color}};">{{user[edit.editor_id].username}}</a>
+                        </td>
                         <td>{{edit.time}}</td>
                         <td>
                             {% if edit.description is empty %}
