@@ -77,7 +77,7 @@
                 $board->update();
                 Redirect::to('/settings/arrangement/', array('message' => 'Keskustelualue päivitetty onnistuneesti!', 'style' => 'success'));
             }else {
-                Redirect::to('/settings/arrangement/board/edit/' . $board->id, array('errors' => $valid));
+                View::make('board/edit.html', array('board' => $board, 'errors' => $valid));
             }
         }
 

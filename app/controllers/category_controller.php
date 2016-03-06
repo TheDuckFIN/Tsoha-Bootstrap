@@ -14,7 +14,7 @@
                 $category->save();
                 Redirect::to('/settings/arrangement/', array('message' => 'Kategoria luotu onnistuneesti!', 'style' => 'success'));
             }else {
-                Redirect::to('/settings/arrangement/', array('message' => $valid, 'style' => 'danger'));
+                Redirect::to('/settings/arrangement/', array('message' => $valid, 'style' => 'danger', 'cat_name' => $params['name']));
             }
         }
 

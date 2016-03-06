@@ -26,7 +26,7 @@
                 $settings->update();
                 Redirect::to('/settings/', array('message' => 'Asetukset tallennettu onnistuneesti!', 'style' => 'success'));
             }else {
-                Redirect::to('/settings/', array('errors' => $valid));
+                View::make('settings/general.html', array('errors' => $valid, 'settings' => $settings));
             }
         }
 

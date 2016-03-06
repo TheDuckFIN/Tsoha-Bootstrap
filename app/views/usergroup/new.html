@@ -25,12 +25,12 @@
 
             <div class="form-group">
                 <label>Ryhmän nimi</label>
-                <input type="text" name="name" value="{{name}}" class="form-control">
+                <input type="text" name="name" value="{{group.name}}" class="form-control">
             </div>
 
             <div class="form-group">
                 <label>Värikoodi heksadesimaalina <small>(esim. #f00, #F0F0F0, #ababab)</small></label>
-                <input type="text" name="color" value="{{color}}" class="form-control">
+                <input type="text" name="color" value="{{group.color}}" class="form-control">
             </div>
 
             <div class="form-group">
@@ -42,15 +42,15 @@
             <h4>Ryhmän oikeudet</h4>
 
             <div class="checkbox">
-                <label><input type="checkbox" name="delete_thread">Keskustelun poistaminen</label><br>
-                <label><input type="checkbox" name="delete_message">Viestin poistaminen</label><br>
-                <label><input type="checkbox" name="edit_message">Kenen tahansa viestin muokkaaminen</label><br>
-                <label><input type="checkbox" name="lock_thread">Keskustelun lukitseminen</label><br>
-                <label><input type="checkbox" name="ban">Käyttäjän asettaminen porttikieltoon</label><br><br>
-                <label><input type="checkbox" name="settingsmanagement">Yleisten asetusten hallinta</label><br>
-                <label><input type="checkbox" name="usergroupmanagement">Käyttäjäryhmien hallinta</label><br>
-                <label><input type="checkbox" name="usermanagement">Käyttäjien hallinta</label><br>
-                <label><input type="checkbox" name="boardmanagement">Kategorioiden ja keskustelualueiden hallinta</label><br>
+                <label><input type="checkbox" name="delete_thread" {{ group_perm.delete_thread ? 'checked' }}>Keskustelun poistaminen</label><br>
+                <label><input type="checkbox" name="delete_message" {{ group_perm.delete_message ? 'checked' }}>Viestin poistaminen</label><br>
+                <label><input type="checkbox" name="edit_message" {{ group_perm.edit_message ? 'checked' }}>Kenen tahansa viestin muokkaaminen</label><br>
+                <label><input type="checkbox" name="lock_thread" {{ group_perm.lock_thread ? 'checked' }}>Keskustelun lukitseminen</label><br>
+                <label><input type="checkbox" name="ban" {{ group_perm.ban ? 'checked' }}>Käyttäjän asettaminen porttikieltoon</label><br><br>
+                <label><input type="checkbox" name="settingsmanagement" {{ group_perm.settingsmanagement ? 'checked' }}>Yleisten asetusten hallinta</label><br>
+                <label><input type="checkbox" name="usergroupmanagement" {{ group_perm.usergroupmanagement ? 'checked' }}>Käyttäjäryhmien hallinta</label><br>
+                <label><input type="checkbox" name="usermanagement" {{ group_perm.usermanagement ? 'checked' }}>Käyttäjien hallinta</label><br>
+                <label><input type="checkbox" name="boardmanagement" {{ group_perm.boardmanagement ? 'checked' }}>Kategorioiden ja keskustelualueiden hallinta</label><br>
             </div>
         </div>
     </div>

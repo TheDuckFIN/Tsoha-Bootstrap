@@ -88,16 +88,16 @@
     UserController::delete($id);
   });
 
-  $routes->post('/user/savesettings/', function() {
-    UserController::update();
-  });
-
   $routes->get('/user/:id/', function($id) {
     UserController::show($id);
   });
 
   $routes->get('/user/:id/settings/', function($id) {
     UserController::edit($id);
+  });
+
+  $routes->post('/user/:id/settings/', function($id) {
+    UserController::update();
   });
 
   $routes->get('/users/', function() {
@@ -112,7 +112,7 @@
     SettingsController::index();
   });
 
-  $routes->post('/settings/save', function() {
+  $routes->post('/settings/', function() {
     SettingsController::update();
   });
 
@@ -132,7 +132,7 @@
     UsergroupController::edit($id);
   });
 
-  $routes->post('/settings/usergroups/edit/', function() {
+  $routes->post('/settings/usergroups/edit/:id', function($id) {
     UsergroupController::update();
   });
 
@@ -164,7 +164,7 @@
     BoardController::save();
   });
 
-  $routes->post('/settings/arrangement/board/edit/', function() {
+  $routes->post('/settings/arrangement/board/edit/:id', function($id) {
     BoardController::update();
   });
 

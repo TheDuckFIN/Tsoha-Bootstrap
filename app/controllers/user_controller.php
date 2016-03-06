@@ -72,23 +72,21 @@
 				if (($user->id === parent::get_user_logged_in()->id) || parent::has_permission('usermanagement')) {
 					if ($params['which_form'] == 'basic') {
 						$valid = User::validate(null, null, null, $params['email'], $params['description']);
+						
+						$user->description = $params['description'];
+						$user->email = $params['email'];
+						if (isset($params['show_email'])) {
+							$user->show_email = true;
+						}else {
+							$user->show_email = false;
+						}
 
 						if (!is_array($valid)) {
-							$user->description = $params['description'];
-							$user->email = $params['email'];
-							if (isset($params['show_email'])) {
-								$user->show_email = true;
-							}else {
-								$user->show_email = false;
-							}
-
 							$user->update();
 
 							Redirect::to('/user/' . $user->id, array('message' => 'Asetukset tallennettu!'));
 						}else {
-							Redirect::to('/user/' . $user->id . '/settings', array(
-								'errors' => $valid
-							));
+							View::make("user/edit.html", array('user' => $user, 'groups' => Usergroup::all(), 'errors' => $valid));
 						}
 					}elseif ($params['which_form'] == 'password') {
 						$valid = User::validate(null, $params['password'], $params['password_confirmation'], null, null);

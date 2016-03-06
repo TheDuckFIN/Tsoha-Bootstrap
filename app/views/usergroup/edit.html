@@ -18,7 +18,7 @@
     </div>
 {% endif %}
 
-<form action="{{base_path}}/settings/usergroups/edit" method="post">
+<form action="{{base_path}}/settings/usergroups/edit/{{group.id}}" method="post">
     <input type="hidden" name="group_id" value="{{group.id}}">
     <div class="row">
         <div class="col-xs-6">
