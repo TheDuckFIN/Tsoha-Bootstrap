@@ -1,4 +1,4 @@
-# Tietokantasovelluksen esittelysivu
+# Keskustelupalsta
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
@@ -8,13 +8,6 @@ Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://vlakanie.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
-
-Bootstrap:
-
-* [Typography](http://getbootstrap.com/css/#type)
-* [Tables](http://getbootstrap.com/css/#tables)
-* [Forms](http://getbootstrap.com/css/#forms)
-* [Buttons](http://getbootstrap.com/css/#buttons)
 
 ## Työn aihe
 
