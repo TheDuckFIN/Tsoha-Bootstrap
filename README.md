@@ -4,8 +4,6 @@
 
 ## Yleistä
 
-Yleisiä linkkejä:
-
 * [Linkki sovellukseeni](http://vlakanie.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/TheDuckFIN/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
